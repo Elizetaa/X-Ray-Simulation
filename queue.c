@@ -1,87 +1,76 @@
 #include "queue.h"
+#include "pacientes.h"
 #include <assert.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include "pacientes.h"
 
-// Define the structure for the queue.
-struct queue
-{
-   QueueNode *front; // Pointer to the front of the queue.
-   QueueNode *rear;  // Pointer to the rear of the queue.
+struct queue_patient{
+   QueueNodePatient *front; 
+   QueueNodePatient *rear; 
 };
 
-// Define a structure for a node in the linked list.
-struct queue_node
-{
-   Patient info;      // A float value stored in the node.
-   QueueNode *next; // A pointer to the next node in the linked list.
+
+struct queue_node_patient{
+   Patient *info;        
+   QueueNodePatient *next;   
 };
 
-// Function to create a new empty queue.
-Queue *q_create()
-{
-   Queue *q = (Queue *)malloc(sizeof(Queue)); // Allocate memory for the queue structure.
-   q->front = q->rear = NULL;                 // Initialize the front and rear pointers to NULL, indicating an empty queue.
-   return q;
+QueuePatient *queue_create_patient(){
+   QueuePatient *queue = (QueuePatient *)malloc(sizeof(QueuePatient));
+   assert(queue != NULL);
+   queue->front = queue->rear = NULL;
+   return queue; 
 }
 
-// Function to check whether the queue is empty.
-int q_is_empty(Queue *q)
-{
-   return q->front == NULL;
+
+int queue_is_empty_patient(QueuePatient *queue){
+   return queue->front == NULL; 
 }
 
-// Function to enqueue a float value into the queue.
-void q_enqueue(Queue *q, Patient *v)
-{
-   QueueNode *node = (QueueNode *)malloc(sizeof(QueueNode)); // Allocate memory for a new node.
-   node->info = *v;
-   node->next = NULL;
 
-   if (q_is_empty(q))
-      q->front = node;
-   else
-      q->rear->next = node;
-
-   q->rear = node;
-}
-
-// Function to dequeue and return a float value from the queue.
-Patient q_dequeue(Queue *q)
-{
-   assert(!q_is_empty(q));
-
-   Patient v = q->front->info;
-   QueueNode *p = q->front; // Store for removal
-
-   if (q->front != q->rear)
-      q->front = q->front->next;
-   else
-      q->front = q->rear = NULL;
-
-   free(p);
-   return v;
-}
-
-// Function to free the memory used by the queue.
-void q_free(Queue *q)
-{
-   QueueNode *p = q->front;
-   while (p != NULL)
-   {
-      QueueNode *t = p->next; // Store a reference to the next node.
-      free(p);                // Free the memory allocated for the current node.
-      p = t;                  // Move to the next node.
+void queue_enqueue_patient(QueuePatient *queue, Patient *data){
+   QueueNodePatient *q = (QueueNodePatient *)malloc(sizeof(QueueNodePatient));
+   assert(q != NULL);
+   q->info = data;
+   q->next = NULL;
+   if (queue_is_empty(queue)){ 
+      queue->front = q;
    }
-   free(q); // Free the memory allocated for the queue structure itself.
+   else{ 
+      queue->rear->next = q;
+   }
+   queue->rear = q;
 }
 
-// Function to display all elements of the queue.
-void q_print(Queue *q)
-{
-   for (QueueNode *p = q->front; p != NULL; p = p->next)
-      printf("%.2f ", p->info);
+
+Patient *queue_dequeue_patient(QueuePatient *queue){
+   assert(!queue_is_empty(queue));
+
+   Patient *data = queue->front->info;
+
+   if (queue->front != NULL)
+      queue->front = queue->front->next;
+   else
+      queue->front = queue->rear = NULL;
+
+   return data;
+}
+
+
+void queue_free_patient(QueuePatient *queue){
+   for (QueueNodePatient *i = queue->front; i->next != NULL; i = i->next){
+      QueueNodePatient *next = i->next;
+      free(i);
+      i = next;
+   }
+   free(queue->rear);
+   free(queue);
+}
+
+
+void queue_print_patient(QueuePatient *queue){
+   for (QueueNodePatient *i = queue->front; i != NULL; i = i->next)
+      printf("%.2f", i->info);
 
    printf("\n");
 }

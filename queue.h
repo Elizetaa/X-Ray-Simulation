@@ -1,27 +1,22 @@
 #ifndef _QUEUE_H
 #define _QUEUE_H
+#include <time.h>
 
-// Define the Queue and QueueNode data structures
-typedef struct queue Queue;          // Represents a queue
-typedef struct queue_node QueueNode; // Represents a node in the queue
-// Operations on the linked list
+typedef struct queue_patient QueuePatient;
+typedef struct queue_node_patient QueueNodePatient; 
 
-// Creates a new empty queue and returns a pointer to it
-Queue *q_create();
 
-// Checks if the specified queue q is empty and returns 1 if true, 0 otherwise
-int q_is_empty(Queue *q);
+QueuePatient *queue_create();
 
-// Enqueues a float value x into the specified queue q
-void q_enqueue(Queue *q, Patient *x);
 
-// Dequeues and returns a float value from the specified queue q
-Patient q_dequeue(Queue *q);
+int queue_is_empty_patient(QueuePatient *queue);
 
-// Free the memory associated with the specified queue q
-void q_free(Queue *q);
 
-// Prints the elements of the specified queue q
-void q_print(Queue *q);
+void queue_enqueue_patient(QueuePatient *queue, float data);
+
+float queue_dequeue_patient(QueuePatient *queue);
+
+void queue_print_patient(QueuePatient *queue);
+
 
 #endif

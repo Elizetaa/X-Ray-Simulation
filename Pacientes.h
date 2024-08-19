@@ -1,27 +1,18 @@
 #ifndef _PACIENTES_H
 #define _PACIENTES_H
+#include <time.h>
+
+typedef struct patient Patient;
 
 
-typedef struct{
+Patient* create_patient(int id, const char *name, struct tm* timestamp); 
 
-    int id;
-    char *name;
-    struct tm *birthdate;
+int get_patient_id(Patient* paciente); 
 
-} Patient;
+char* get_patient_name(Patient* paciente); 
 
-/*--------------------------------------------
-    FUNÇÕES PARA MANIPULAÇÕES DOS PACIENTES        
---------------------------------------------*/
+struct tm* get_patient_timestamp(Patient *paciente); 
 
-Patient* create_patient(int id, const char *name, struct tm *birthdate); /* Retorna um ponteiro para uma estrutura alocada na memória */
-
-int get_patient_id(Patient* paciente); /* Retorna o ID da struct Patient */
-
-char* get_patient_name(Patient* paciente); /* Retorna o nome da struct Patient */
-
-struct tm* get_patient_birthdate(Patient *paciente); /* Retorna a data de nascimento da struct Patient */
-
-void destroy_patient(Patient *paciente); /* Deleta o registro da memória */
+void destroy_patient(Patient *paciente);
 
 #endif
