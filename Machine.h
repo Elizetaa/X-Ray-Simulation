@@ -27,8 +27,4 @@ int get_machine_timecount(Machine *machine);
 
 Patient *get_machine_patient(Machine *machine);
 
-void run_machine_queue(QueueMachine *queue, QueueExam *exam_queue, int exam_id);
-
-int XRMachineManager (int machine_slots, QueueMachine *machine_queue, QueueExam * exam_queue, QueuePatient *patient_queue, int machine_id, int exam_id);
-
 #endif

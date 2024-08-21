@@ -1,31 +1,34 @@
 #ifndef _EXAMES_H
 #define _EXAMES_H
+#include <time.h>
+
+typedef struct Exame Exam;
+typedef struct queue_exam QueueExam;
+typedef struct queue_node_exam QueueNodeExam; 
 
 
-typedef struct{
+QueueExam *queue_create_exam();
 
-    int id;
-    int patient_id;
-    int rx_id;
-    struct tm* time;
+int queue_is_empty_exam(QueueExam *queue);
 
-}Exam;
+void queue_enqueue_exam(QueueExam *queue, Exam *data);
 
-/*--------------------------------------------
-    FUNÇÕES PARA MANIPULAÇÕES DOS EXAMES        
---------------------------------------------*/
+Exam *queue_dequeue_exam(QueueExam *queue);
 
-Exam* create_exam(int id, int patient_id, int rx_id, struct tm *time); /* Retorna o ID da struct Exam */
+void queue_print_exam(QueueExam *queue);
 
-void destroy_exam(Exam *exame); /* Libera a memória alocada para struc Exam */
+Exam* create_exam(int id, int patient_id, int rx_id, struct tm *time, const char *condition_IA, int prio); 
 
-int get_exam_id(Exam *exame); /* Retorna o ID da struct Exam */
+void destroy_exam(Exam *exame); 
 
-int get_exam_patient_id(Exam *exame); /* Retorna o ID do paciente através da struct Exam */
+int get_exam_id(Exam *exame); 
 
-int get_exam_rx_id(Exam *exame); /* Retorna o ID do exame */
+int get_exam_patient_id(Exam *exame); 
 
-struct tm* get_exam_time(Exam *exame); /* Retorna o horário do exame */
+int get_exam_rx_id(Exam *exame); 
 
+struct tm* get_exam_time(Exam *exame); 
+
+int get_last_exam_id(QueueExam *exam_queue);
 
 #endif
