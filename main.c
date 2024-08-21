@@ -6,16 +6,10 @@
 #include "pacientes.h"
 #include "exames.h"
 #include "Machine.h"
+#include <unistd.h>
 
-QueueExam *XRMachineManager (int machine_slots, QueuePatient *machine_queue, QueueExam * exam_queue, QueuePatient *patient_queue){
-    assert(patient_queue != NULL && exam_queue != NULL && machine_queue != NULL);
-    int id = 1;
-    if (machine_slots == 0){
-        return NULL;
-    }   
-    Patient *patient = queue_dequeue_patient(patient_queue);
-    queue_enqueue_patient(machine_queue, patient);
-} 
+
+
 
 
 int main()
@@ -26,6 +20,12 @@ int main()
     struct tm* data_hora_atual;
     time_t segundos;
     
+    /*Define as variaveis das máquinas*/
+    int machine_slots = 5;
+    int machine_id = 1;
+
+    /*Define as variaveis de exame*/
+    int exam_id = 1;
     /*Abertura do arquivo na variável patient_file*/
     FILE *patient_file = fopen("db_patient.txt", "a+");
     
@@ -36,14 +36,12 @@ int main()
     QueueMachine *machine_queue = queue_create_machine();
 
     /*Criação da fila de pacientes*/
-    QueuePatient *patiente_queue = queue_create_patient();
+    QueuePatient *patient_queue = queue_create_patient();
     
     /*Criação da fila de exames*/
     QueueExam *exam_queue = queue_create_exam();
 
-    /*Define as vagas das máquinas para 5*/
-    int machine_slots = 5;
-
+    
     /*Looping principal, contem a contagem do tempo em "unidades de tempo" e realiza as operações*/
     for (int i = 1; i <= 200; i++){
        /*Verifica uma condição de 20% de chance de um paciente entrar*/
@@ -56,15 +54,21 @@ int main()
             write_patient_in_file(paciente, patient_file);
 
             /*Adiciona o paciente dentro de uma fila de pacientes patient_queue*/
-            queue_enqueue_patient(patiente_queue, paciente);
+            queue_enqueue_patient(patient_queue, paciente);
             ids += 1;
             
-       }    
-       
+       }
+       machine_slots = XRMachineManager(machine_slots, machine_queue, exam_queue, patient_queue, machine_id, exam_id); 
+        if (machine_slots != 5 || machine_slots != 0){
+            machine_id +=1;
+            if (machine_id >5){
+                machine_id = 1;
+            }
+        }
+        exam_id = get_last_exam_id(exam_queue);
     }
     /*fecha o arquivo patient_file.txt*/
     fclose(patient_file);
-    
 
 }
 

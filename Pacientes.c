@@ -4,6 +4,8 @@
 #include <string.h>
 #include <assert.h>
 #include <stdio.h>
+#include <unistd.h>
+
 
 struct patient{
     int id;

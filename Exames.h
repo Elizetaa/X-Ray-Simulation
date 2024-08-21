@@ -17,7 +17,7 @@ Exam *queue_dequeue_exam(QueueExam *queue);
 
 void queue_print_exam(QueueExam *queue);
 
-Exam* create_exam(int id, int patient_id, int rx_id, struct tm *time, const char *condition_IA); 
+Exam* create_exam(int id, int patient_id, int rx_id, struct tm *time, const char *condition_IA, int prio); 
 
 void destroy_exam(Exam *exame); 
 
@@ -29,5 +29,6 @@ int get_exam_rx_id(Exam *exame);
 
 struct tm* get_exam_time(Exam *exame); 
 
+int get_last_exam_id(QueueExam *exam_queue);
 
 #endif

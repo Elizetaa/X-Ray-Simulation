@@ -5,6 +5,8 @@
 #include <assert.h>
 #include <stdio.h>
 #include "Pacientes.h"
+#include <unistd.h>
+
 
 
 
@@ -15,7 +17,7 @@ struct Exame{
     int patient_id;
     char *condition_IA;
     struct tm* timestamp;
-
+    int prio;
 };
 
 struct queue_exam{
@@ -29,8 +31,7 @@ struct queue_node_exam{
    QueueNodeExam *next;   
 };
 
-
-Exam* create_exam(int id, int patient_id, int rx_id, struct tm *time, const char *condition_IA){ 
+Exam* create_exam(int id, int patient_id, int rx_id, struct tm *time, const char *condition_IA, int prio){ 
     Exam* exame = (Exam*)malloc(sizeof(Exam));
     assert(exame != NULL || time != NULL || condition_IA != NULL);
 
@@ -44,6 +45,9 @@ Exam* create_exam(int id, int patient_id, int rx_id, struct tm *time, const char
     exame->id = id;
     exame->patient_id = patient_id;
     exame->rx_id = rx_id;
+    exame->timestamp = time;
+    strcpy(exame->condition_IA, condition_IA);
+    exame->prio = prio;
     return exame;
 }
 
@@ -101,10 +105,10 @@ void queue_free_exam(QueueExam *queue){
 
 
 void queue_print_exam(QueueExam *queue){
-   for (QueueNodeExam *i = queue->front; i != NULL; i = i->next)
+   for (QueueNodeExam *i = queue->front; i != NULL; i = i->next){
       printf("%d", i->info->id);
-
-      printf("\n");
+   }
+   printf("\n");
 }
 
 void destroy_exam(Exam *exame){
@@ -126,4 +130,12 @@ int get_exam_rx_id(Exam *exame){
 
 struct tm* get_exam_time(Exam *exame){
     return exame->timestamp;
+}
+
+int get_last_exam_id(QueueExam *queue){
+   int id;
+   for(QueueNodeExam *i = queue->front; i->next != NULL; i = i->next){
+         id = i->info->id;
+   }
+   return id;
 }
