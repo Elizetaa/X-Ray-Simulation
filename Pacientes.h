@@ -1,33 +1,27 @@
 #ifndef _PACIENTES_H
 #define _PACIENTES_H
-#include <time.h>
-#include <stdio.h>
 
 
-typedef struct patient Patient;
-typedef struct queue_patient QueuePatient;
-typedef struct queue_node_patient QueueNodePatient; 
+typedef struct{
 
-Patient* create_patient(int id, const char *name, struct tm* timestamp); 
+    int id;
+    char *name;
+    struct tm *birthdate;
 
-QueuePatient *queue_create_patient();
+} Patient;
 
-int queue_is_empty_patient(QueuePatient *queue);
+/*--------------------------------------------
+    FUNÇÕES PARA MANIPULAÇÕES DOS PACIENTES        
+--------------------------------------------*/
 
-void queue_enqueue_patient(QueuePatient *queue, Patient *data);
+Patient* create_patient(int id, const char *name, struct tm *birthdate); /* Retorna um ponteiro para uma estrutura alocada na memória */
 
-Patient *queue_dequeue_patient(QueuePatient *queue);
+int get_patient_id(Patient* paciente); /* Retorna o ID da struct Patient */
 
-void queue_print_patient(QueuePatient *queue);
+char* get_patient_name(Patient* paciente); /* Retorna o nome da struct Patient */
 
-int get_patient_id(Patient* paciente); 
+struct tm* get_patient_birthdate(Patient *paciente); /* Retorna a data de nascimento da struct Patient */
 
-char* get_patient_name(Patient* paciente); 
-
-struct tm* get_patient_timestamp(Patient *paciente); 
-
-void destroy_patient(Patient *paciente);
-
-void write_patient_in_file(Patient *paciente, FILE *paciente_file);
+void destroy_patient(Patient *paciente); /* Deleta o registro da memória */
 
 #endif
