@@ -1,13 +1,12 @@
-#include "exames.h"
-#include <time.h>
 #include <stdlib.h>
+#include <stdio.h>
+#include <time.h>
 #include <string.h>
 #include <assert.h>
-#include <stdio.h>
-#include "Pacientes.h"
+#include "pacientes.h"
+#include "exames.h"
+#include "Machine.h"
 #include <unistd.h>
-
-
 
 
 struct Exame{
@@ -31,22 +30,18 @@ struct queue_node_exam{
    QueueNodeExam *next;   
 };
 
-Exam* create_exam(int id, int patient_id, int rx_id, struct tm *time, const char *condition_IA, int prio){ 
-    Exam* exame = (Exam*)malloc(sizeof(Exam));
-    assert(exame != NULL || time != NULL || condition_IA != NULL);
-
-    memcpy(exame->timestamp, time, sizeof(struct tm));
-
-    strcpy(exame->condition_IA, condition_IA);
-
-    if (exame == NULL || exame->timestamp == NULL || exame->condition_IA == NULL)
+Exam* create_exam(int id, int patient_id, int rx_id, struct tm *time, char *condition_IA, int prio){ 
+   Exam* exame = (Exam*)malloc(sizeof(Exam));
+   assert(exame != NULL || time != NULL || condition_IA != NULL);
+   if (time == NULL || condition_IA == NULL) {
+        free(exame);
         return NULL;
-
+    }
     exame->id = id;
     exame->patient_id = patient_id;
     exame->rx_id = rx_id;
     exame->timestamp = time;
-    strcpy(exame->condition_IA, condition_IA);
+    exame->condition_IA = condition_IA;
     exame->prio = prio;
     return exame;
 }
@@ -105,10 +100,13 @@ void queue_free_exam(QueueExam *queue){
 
 
 void queue_print_exam(QueueExam *queue){
+   printf("\n");
    for (QueueNodeExam *i = queue->front; i != NULL; i = i->next){
-      printf("%d", i->info->id);
+      printf("ID: %d, CONDICAO: %s, PRIORIDADE: %d", i->info->id, i->info->condition_IA,i->info->prio);
+      printf("\n");
    }
    printf("\n");
+   
 }
 
 void destroy_exam(Exam *exame){
@@ -132,10 +130,87 @@ struct tm* get_exam_time(Exam *exame){
     return exame->timestamp;
 }
 
-int get_last_exam_id(QueueExam *queue){
-   int id;
-   for(QueueNodeExam *i = queue->front; i->next != NULL; i = i->next){
-         id = i->info->id;
+char *get_exam_condition(Exam *exame){
+   return exame->condition_IA;
+}
+
+int get_exam_prio(Exam* exame){
+   return exame->prio;
+}
+
+char *create_diagnosis(){
+   int diagnosis = rand() % 100;
+   if (diagnosis < 30){
+      return "Saude Normal";
    }
-   return id;
+   else if (diagnosis >= 30 && diagnosis < 50){
+      return "Bronquite";
+   }
+   else if (diagnosis >= 50 && diagnosis < 60){
+      return "Pneumonia";
+   }
+   else if (diagnosis >= 60 && diagnosis < 70){
+      return "COVID";
+   }
+   else if (diagnosis >= 70 && diagnosis < 75){
+      return "Embolia pulmonar";
+   }
+   else if (diagnosis >= 75 && diagnosis < 80){
+      return "Derrame pleural";
+   }
+   else if (diagnosis >= 80 && diagnosis < 85){
+      return "Fibrose pulmonar";
+   }
+   else if (diagnosis >= 85 && diagnosis < 90){
+      return "Tuberculose";
+   }
+   else {
+      return "Cancer de pulmao";
+   }
+}
+
+int get_diagnostico_prio(char *diagnostico){
+   if (!strcmp(diagnostico, "Saude Normal")){
+      return 1;
+   }
+   else if(!strcmp(diagnostico, "Bronquite")){
+      return 2;
+   }
+   else if(!strcmp(diagnostico, "Pneumonia")){
+      return 3;
+   }
+   else if(!strcmp(diagnostico, "COVID")){
+      return 4;
+   }
+   else if(!strcmp(diagnostico, "Embolia pulmonar")){
+      return 4;
+   }
+   else if(!strcmp(diagnostico, "Derrame pleural")){
+      return 4;
+   }
+   else if(!strcmp(diagnostico, "Fibrose pulmonar")){
+      return 5;
+   }
+   else if(!strcmp(diagnostico, "Tuberculose")){
+      return 5;
+   }
+   else if(!strcmp(diagnostico, "Cancer de pulmao")){
+      return 6;
+   }
+   else {
+      return 0;  // Retorno padrão caso nenhum diagnóstico corresponda
+   }
+}
+
+void write_exam_in_file(Exam *exam, FILE *file, int i){
+   char* condition = get_exam_condition(exam);
+   struct tm *data_hora_atual = get_exam_time(exam);
+   int patient_id = get_exam_patient_id(exam);
+   int machine_id = get_exam_rx_id(exam);
+   int exam_id = get_exam_id(exam);
+   int prio = get_exam_prio(exam);
+   int dia = data_hora_atual->tm_mday;
+   int mes = data_hora_atual->tm_mon+1;
+   int ano = data_hora_atual->tm_year +1900;
+   fprintf(file, ("ID do Exame: %d, Maquina Utilizada: %d, ID do Paciente: %d, Condicao: %s, Prioridade: %d, HoraDeEntrada: %d/%d/%d Iteração: %d, \n"), exam_id, machine_id, patient_id, condition,prio,dia,mes,ano,i);
 }

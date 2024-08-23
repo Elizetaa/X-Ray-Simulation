@@ -116,12 +116,13 @@ void queue_print_patient(QueuePatient *queue){
    }
 }
 
-void write_patient_in_file(Patient *paciente, FILE *paciente_file){
+void write_patient_in_file(Patient *paciente, FILE *paciente_file, int i){
     char* nome = get_patient_name(paciente);
     struct tm *data_hora_atual = get_patient_timestamp(paciente);
     int ids = get_patient_id(paciente);
     int dia = data_hora_atual->tm_mday;
     int mes = data_hora_atual->tm_mon+1;
     int ano = data_hora_atual->tm_year +1900;
-    fprintf(paciente_file, ("Id: %d Nome: %s HoraDeEntrada: %d/%d/%d\n\n"),ids,nome,dia,mes,ano);
+    fprintf(paciente_file, ("Id: %d Nome: %s HoraDeEntrada: %d/%d/%d, Iteração: %d\n"),ids,nome,dia,mes,ano,i);
 }
+

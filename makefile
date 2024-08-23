@@ -17,14 +17,14 @@ TARGET = trabalho
 .PHONY: all compile run clean
 
 # Default target (compile and run)
-all: compile run
+all: compile
 
 # Explicit compile target (produces the target program)
 compile: $(TARGET)
 
 # Run the executable
 run: $(TARGET)
-	./$(TARGET)
+	./$(TARGET).exe
 
 # Clean up
 clean:

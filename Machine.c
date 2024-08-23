@@ -76,7 +76,6 @@ Machine *queue_dequeue_machine(QueueMachine *queue){
    return data;
 }
 
-
 void queue_free_machine(QueueMachine *queue){
    for (QueueNodeMachine *i = queue->front; i->next != NULL; i = i->next){
       QueueNodeMachine *next = i->next;
@@ -87,17 +86,15 @@ void queue_free_machine(QueueMachine *queue){
    free(queue);
 }
 
-/*
 void queue_print_machine(QueueMachine *queue){
-   for (QueueNodeMachine *i = queue->front; i != NULL; i = i->next)
-      queue_print_patient(i->info->paciente);
-
-   printf("\n");
+   for (QueueNodeMachine *i = queue->front; i != NULL; i = i->next){
+      printf("Paciente: %s, Maquina: %d Tempo na fila: %d" , get_patient_name(i->info->paciente), i->info->machine_id, i->info->timecount);
+      printf("\n");
+   }
 }
-*/
 
 void destroy_machine(Machine *machine){
-    destroy_patient(machine->paciente); /* Mudei essa parte */
+    destroy_patient(machine->paciente);
     free(machine);
 }
 
@@ -108,3 +105,35 @@ int get_machine_timecount(Machine *machine){
 Patient *get_machine_patient(Machine *machine){
     return machine->paciente;
 }
+
+int get_machine_id(Machine *machine){
+    return machine->machine_id;
+}
+
+/*Caso haja um paciente na fila de espera, coloque ele em uma máquina e aloque ela na fila de máquinas*/
+int manage_machine_slots(QueueMachine *machinequeue, int machine_slots, QueuePatient *patientqueue, int exam_id, QueueExam *exam_queue, int machine_id){
+      if (queue_is_empty_patient(patientqueue)){
+         return machine_slots;
+      }
+      if (machine_slots > 0){
+         Patient *paciente = queue_dequeue_patient(patientqueue);
+         Machine *maquina = create_machine(paciente, machine_id);
+         queue_enqueue_machine(machinequeue, maquina);
+         machine_slots -= 1;
+         }
+      return machine_slots;
+}
+/*Subtraia -1 de todos os elementos que já estão na fila de máquinas, caso a fila de máquinas esteja vazia não prossiga*/
+void run_machine_queue(QueueMachine *machinequeue){
+   if (!queue_is_empty_machine(machinequeue)){
+      for (QueueNodeMachine *i = machinequeue->front; i != NULL; i = i->next){
+         i->info->timecount -=1;
+      }
+   }
+}
+
+/*Função que verifica se o paciente deve sair da maquina*/
+int is_timecount_zero(QueueMachine *maquina_queue) {
+   return maquina_queue->front->info->timecount == 0;
+}
+

@@ -28,6 +28,6 @@ struct tm* get_patient_timestamp(Patient *paciente);
 
 void destroy_patient(Patient *paciente);
 
-void write_patient_in_file(Patient *paciente, FILE *paciente_file);
+void write_patient_in_file(Patient *paciente, FILE *paciente_file, int i);
 
 #endif
