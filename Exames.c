@@ -214,3 +214,27 @@ void write_exam_in_file(Exam *exam, FILE *file, int i){
    int ano = data_hora_atual->tm_year +1900;
    fprintf(file, ("ID do Exame: %d, Maquina Utilizada: %d, ID do Paciente: %d, Condicao: %s, Prioridade: %d, HoraDeEntrada: %d/%d/%d Iteração: %d, \n"), exam_id, machine_id, patient_id, condition,prio,dia,mes,ano,i);
 }
+
+void enqueue_priority(Exam *exame, QueueExam *priority_queue){
+   QueueNodeExam *node = (QueueNodeExam*)malloc(sizeof(QueueNodeExam));
+   node->info = exame;
+   node->next = NULL;
+   if (priority_queue->front == NULL || priority_queue->front->info->prio < exame->prio){
+      node->next = priority_queue->front;
+      priority_queue->front = node;
+      if (priority_queue->rear == NULL){
+         priority_queue->rear == node;
+      }
+   }
+   else{
+      QueueNodeExam *aux_node = priority_queue->front;
+      while (aux_node->next != NULL && aux_node->next->info->prio >= exame->prio){
+         aux_node = aux_node->next;
+      }
+      node->next = aux_node->next;
+      aux_node->next = node;
+      if (node->next == NULL) {
+            priority_queue->rear = node;
+      }
+   }
+}

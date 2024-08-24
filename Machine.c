@@ -123,6 +123,7 @@ int manage_machine_slots(QueueMachine *machinequeue, int machine_slots, QueuePat
          }
       return machine_slots;
 }
+
 /*Subtraia -1 de todos os elementos que já estão na fila de máquinas, caso a fila de máquinas esteja vazia não prossiga*/
 void run_machine_queue(QueueMachine *machinequeue){
    if (!queue_is_empty_machine(machinequeue)){

@@ -40,4 +40,6 @@ int get_diagnostico_prio(char *diagnostico);
 
 void write_exam_in_file(Exam *exam, FILE *file, int i);
 
+void enqueue_priority(Exam *exame, QueueExam *priority_queue);
+
 #endif
