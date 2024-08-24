@@ -110,8 +110,7 @@ void queue_free_patient(QueuePatient *queue){
 
 void queue_print_patient(QueuePatient *queue){
    for (QueueNodePatient *i = queue->front; i != NULL; i = i->next){
-      printf("Id: %d\n", i->info->id);
-      sleep(1);
+      printf("Id do paciente: %d\n", i->info->id);
       printf("\n");
    }
 }
@@ -126,3 +125,10 @@ void write_patient_in_file(Patient *paciente, FILE *paciente_file, int i){
     fprintf(paciente_file, ("Id: %d Nome: %s HoraDeEntrada: %d/%d/%d, Iteração: %d\n"),ids,nome,dia,mes,ano,i);
 }
 
+int get_n_patient_queue(QueuePatient *queue){
+   int cont = 0;
+   for(QueueNodePatient *i = queue->front; i != NULL; i = i->next){
+      cont++;
+   }
+   return cont;
+}

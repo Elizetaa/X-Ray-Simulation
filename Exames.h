@@ -6,9 +6,17 @@
 typedef struct Exame Exam;
 typedef struct queue_exam QueueExam;
 typedef struct queue_node_exam QueueNodeExam; 
-
+typedef struct report Report;
 
 QueueExam *queue_create_exam();
+
+Report *create_report(Exam *exame, int id);
+
+void destroy_report(Report *report);
+
+void print_file_report(Report *report);
+
+void write_report_in_file(FILE* report_file, Report* report);
 
 int queue_is_empty_exam(QueueExam *queue);
 

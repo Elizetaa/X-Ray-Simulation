@@ -1,19 +1,39 @@
+# Compiler
 CC = gcc
-CFLAGS = -W -Wall -ansi -pedantic -std=c99
 
-SRCS = main.c Exames.c Pacientes.c queue.c
+# Compiler flags
+CFLAGS = -Wall
 
+# Source files
+SRCS = main.c Pacientes.c Exames.c Machine.c
+
+# Object files
 OBJS = $(SRCS:.c=.o)
 
-TARGET = trabalhoed
+# Executable name
+TARGET = trabalho
 
-all: $(TARGET)
+# Phony targets
+.PHONY: all compile run clean
 
-$(TARGET): $(OBJS)
-	$(CC) -o $(TARGET) $(OBJS)
+# Default target (compile and run)
+all: compile
 
+# Explicit compile target (produces the target program)
+compile: $(TARGET)
+
+# Run the executable
+run: $(TARGET)
+	./$(TARGET).exe
+
+# Clean up
+clean:
+	rm -f $(OBJS) $(TARGET)
+
+# Compile source files into object files
 %.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
-clean:
-	rm -f $(OBJS) $(TARGET)
+# Link object files to create the executable
+$(TARGET): $(OBJS)
+	$(CC) $(CFLAGS) -o $(TARGET) $(OBJS)

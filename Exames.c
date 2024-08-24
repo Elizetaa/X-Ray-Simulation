@@ -7,6 +7,7 @@
 #include "exames.h"
 #include "Machine.h"
 #include <unistd.h>
+#include <string.h>
 
 
 struct Exame{
@@ -17,6 +18,7 @@ struct Exame{
     char *condition_IA;
     struct tm* timestamp;
     int prio;
+    int report;
 };
 
 struct queue_exam{
@@ -28,6 +30,15 @@ struct queue_exam{
 struct queue_node_exam{
    Exam *info;        
    QueueNodeExam *next;   
+};
+
+struct report{
+   int id;
+   int exam_id;
+   char *condition;
+   struct tm *timestamp;
+   int time;
+
 };
 
 Exam* create_exam(int id, int patient_id, int rx_id, struct tm *time, char *condition_IA, int prio){ 
@@ -43,7 +54,49 @@ Exam* create_exam(int id, int patient_id, int rx_id, struct tm *time, char *cond
     exame->timestamp = time;
     exame->condition_IA = condition_IA;
     exame->prio = prio;
+    exame->report = 30;
     return exame;
+}
+
+Report *create_report(Exam *exame, int id){
+   Report* report = (Report*)malloc(sizeof(Report));
+   assert(report != NULL);
+   struct tm* data_hora_atual;
+   time_t segundos;
+   time(&segundos);
+   int p = rand()%100;
+   char *a;
+   report->time = 0;
+   if (p < 80){
+      report->condition = exame->condition_IA;
+   }
+   else{
+      a = create_diagnosis();
+      while(exame->condition_IA == a){
+         a = create_diagnosis();
+      }
+      report->condition = a;
+   }
+   data_hora_atual = localtime(&segundos);
+   report->id = id;
+   report->exam_id = exame->id;
+   report->timestamp = data_hora_atual;
+   return report;
+}
+
+
+
+void destroy_report(Report *report){
+   assert(report != NULL);
+   free(report->condition);
+   free(report);
+}
+
+void print_file_report(Report *report){
+   int hours = report->timestamp->tm_hour;
+   int minutes = report->timestamp->tm_min;
+   int seconds = report->timestamp->tm_sec;
+   printf("ID: %d, Exam_ID: %d, Codition: %s, Timestamp: %d:%d:%d", report->id,report->exam_id,report->condition,hours,minutes,seconds);
 }
 
 QueueExam *queue_create_exam(){
@@ -222,9 +275,7 @@ void enqueue_priority(Exam *exame, QueueExam *priority_queue){
    if (priority_queue->front == NULL || priority_queue->front->info->prio < exame->prio){
       node->next = priority_queue->front;
       priority_queue->front = node;
-      if (priority_queue->rear == NULL){
-         priority_queue->rear == node;
-      }
+      
    }
    else{
       QueueNodeExam *aux_node = priority_queue->front;
@@ -238,3 +289,13 @@ void enqueue_priority(Exam *exame, QueueExam *priority_queue){
       }
    }
 }
+
+
+void write_report_in_file(FILE* report_file, Report* report){
+   int hours = report->timestamp->tm_hour;
+   int minutes = report->timestamp->tm_min;
+   int seconds = report->timestamp->tm_sec;
+   fprintf(report_file,("ID: %d, Exam_ID: %d, Codition: %s, Timestamp: %d:%d:%d\n"), report->id,report->exam_id,report->condition,hours,minutes,seconds);
+}
+
+

@@ -30,4 +30,6 @@ void destroy_patient(Patient *paciente);
 
 void write_patient_in_file(Patient *paciente, FILE *paciente_file, int i);
 
+int get_n_patient_queue(QueuePatient *queue);
+
 #endif
