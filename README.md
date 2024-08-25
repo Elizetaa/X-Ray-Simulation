@@ -1,7 +1,8 @@
 ## Estrutura de Dados - Luiz Felipe Elizeta dos Santos e Caio Cesar Oliva Coronel
 # Sistema de Gestão de Pacientes e Exames
 
-Este projeto simples de um sistema para gerenciar pacientes e exames médicos. Com foco em manipulação de estruturas e criação de bibliotecas próprias em C.
+Este projeto simples com foco em manipulação de estruturas, criação de TAD's e bibliotecas próprias em C.
+O programa realiza uma simulação de realizações de exames de Raio-X e cria arquivos contendo os dados gerados e cria relatórios periódicos no terminal.
 
 ## Requisito:
   - Compilador para C (gcc)
