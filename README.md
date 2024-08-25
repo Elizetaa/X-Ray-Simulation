@@ -3,13 +3,21 @@
 
 Este projeto simples de um sistema para gerenciar pacientes e exames médicos. Com foco em manipulação de estruturas e criação de bibliotecas próprias em C.
 
-## Funcionalidades
+## Requisito:
+  - Compilador para C (gcc)
+  - Linguagem C instalada e funcionando
+  - Make instalado.
+    
+## Como executar
+  Faça o download de todos os arquivos na main e abra-o em algum compilador.
+  Utilizando o prompt de comandos utilize o comando `Make all` (no windows pode-se usar o comando `mingw32-make.exe all`)
+  
+  
+  1. **instalar Dependências:**
+  
 
-- Criação de pacientes com ID, nome e data de nascimento.
-- Criação de exames com ID, ID do paciente, ID do aparelho de Raio-X e data/hora do exame
-- Exibição das informações dos pacientes e exames.
-
-## Estruturas e Funções
+  ### Dependências
+  Para executar, basta fazer o download de todos os arquivos do repositório e utilizar o executavel make, que está dentro dos arquivos do mingw, utilizando o prompt de comando para executar o seguinte comando "mingw32-make.exe all" ou "mingw64-make.exe all" (pode mudar a depender da sua versão).
 
 ### Paciente (`Patient`)
 
