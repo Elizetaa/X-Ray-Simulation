@@ -36,5 +36,5 @@ Os Tipos Abstratos de Dados criados para suprir as necessidades ficaram de certa
 Dentro de cada biblioteca há funções para manipulação de cada TAD definido dentro do próprio arquivoa, em que todas tem seu funcionamento documentado dentro de cada arquivo.h. Em cada arquivo, as funções são muito parecidas, como a criação de filas, o adicionar e remover de elementos na fila e a liberação de memória alocada presente em todas elas. 
 Obs. Nem todas funções foram utilizadas.
 
-### Implementações importantes
-Algumas implementações foram 
+### Principais decisões de Implementação
+Algumas implementações foram realizadas de maneira específica para facilitar o desenvolvimento, como a padronização na criação de filas para cada processo, uma vez que já estávamos trabalhando extensivamente com essa estrutura. Além disso, padronizamos funções e adotamos a convenção de utilizar inglês para as variáveis do código. Também foi criada uma função separada para calcular horas extras dos médicos, permitindo a finalização dos exames após o período definido. E por fim, a forma de como os dados são mostrados no terminal.
