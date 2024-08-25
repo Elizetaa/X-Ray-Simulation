@@ -9,44 +9,32 @@ Este projeto simples de um sistema para gerenciar pacientes e exames médicos. C
   - Make instalado.
     
 ## Como executar
-  Faça o download de todos os arquivos na main e abra-o em algum compilador.
-  Utilizando o prompt de comandos utilize o comando `Make all` (no windows pode-se usar o comando `mingw32-make.exe all`)
-  
-  
-  1. **instalar Dependências:**
-  
+  Faça o download de todos os arquivos na branch main e abra a pasta com os downloads em algum compilador que compile C.
+  Utilize o comando `Make all` (este comando pode variar, consulte como será em seu sistema.) e execute o trabalho.exe que deverá ser criado.
+  Nota: Serão criados três arquivos.txt referentes ao programa, você pode observar e alterar ele de acordo com sua vontade.
 
-  ### Dependências
-  Para executar, basta fazer o download de todos os arquivos do repositório e utilizar o executavel make, que está dentro dos arquivos do mingw, utilizando o prompt de comando para executar o seguinte comando "mingw32-make.exe all" ou "mingw64-make.exe all" (pode mudar a depender da sua versão).
+## TAD's
+Os Tipos Abstratos de Dados criados para suprir as necessidades ficaram de certa forma padronizados, a maior parte seguindo a ideia de uma fila, e separados entre três bibliotecas próprias.
 
-### Paciente (`Patient`)
+### Exames
+  - `Exam:` Contém todas as informações relativas ao exame em si para manipulações.
+  - `QueueExam:` Base da fila, onde através dela você pode acessar todos os elementos da fila.
+  - `QueueNodeExam:` Um elemento na fila.
+  - `Report:` Estrutura do documento final.
 
-Estrutura que representa um paciente (`patient`). Dividida em ID, Nome e data de nascimento,
-onde são representados como `id`,`nome` e `birthdate`, respectivamente.
+### Machine
+  - `Machine:` Contém informações internas da máquina.
+  - `QueueMachine:` Base da fila de Máquinas.
+  - `QueueNodeMachine:` Um elemento na fila.
 
-#### Funções
+### Pacientes
+  - `Patient:` Contém informações internas do paciente.
+  - `QueuePatient:` Base da fila de pacientes.
+  - `QueueNodePatient:` Um elemento na fila.
 
-- `Patient *create_patient()`: Cria um novo paciente.
-- `int get_patient_id()`: Retorna o ID do paciente.
-- `const char *get_patient_name()`: Retorna o nome do paciente.
-- `struct tm *get_patient_birthdate()`: Retorna a data de nascimento do paciente.
-- `void destroy_patient()`: Libera a memória alocada para o paciente.
+## Implementações
+Dentro de cada biblioteca há funções para manipulação de cada TAD definido dentro do próprio arquivoa, em que todas tem seu funcionamento documentado dentro de cada arquivo.h. Em cada arquivo, as funções são muito parecidas, como a criação de filas, o adicionar e remover de elementos na fila e a liberação de memória alocada presente em todas elas. 
+Obs. Nem todas funções foram utilizadas.
 
-### Exame (`Exam`)
-
-Estrutura que representa um exame médico (`exam`). Dividida em ID do exame, ID do paciente, ID di aparelho de Raio-X e Data do exame,
-onde são representados como `id`,`patient_id`,`rx_id` e `time` respectivamente.
-
-#### Funções
-
-- `Exam *create_exam()`: Cria um novo exame.
-- `int get_exam_id()`: Retorna o ID do exame.
-- `int get_exam_patient_id()`: Retorna o ID do paciente associado ao exame.
-- `int get_exam_rx_id()`: Retorna o ID do aparelho de Raio-X utilizado no exame.
-- `struct tm *get_exam_time()`: Retorna a data e hora do exame.
-- `void destroy_exam()`: Libera a memória alocada para o exame.
-
-
-## Como usar
-
-Para implementar o código basta usar o arquivo executar.bat !
+### Implementações importantes
+Algumas implementações foram 
