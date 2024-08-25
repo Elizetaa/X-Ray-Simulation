@@ -109,9 +109,14 @@ void queue_free_patient(QueuePatient *queue){
 }
 
 void queue_print_patient(QueuePatient *queue){
-   for (QueueNodePatient *i = queue->front; i != NULL; i = i->next){
-      printf("Id do paciente: %d\n", i->info->id);
-      printf("\n");
+   if (queue->front == NULL){
+      printf ("Nao ha pacientes em aguardo");
+   }
+   else{
+      for (QueueNodePatient *i = queue->front; i != NULL; i = i->next){
+         printf("Id do paciente: %d\n", i->info->id);
+         printf("\n");
+      }
    }
 }
 

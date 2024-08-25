@@ -79,6 +79,7 @@ Machine *queue_dequeue_machine(QueueMachine *queue){
 void queue_free_machine(QueueMachine *queue){
    for (QueueNodeMachine *i = queue->front; i->next != NULL; i = i->next){
       QueueNodeMachine *next = i->next;
+      destroy_machine(i->info);
       free(i);
       i = next;
    }
@@ -87,9 +88,14 @@ void queue_free_machine(QueueMachine *queue){
 }
 
 void queue_print_machine(QueueMachine *queue){
-   for (QueueNodeMachine *i = queue->front; i != NULL; i = i->next){
-      printf("ID: %d, Maquina: %d Tempo na fila: %d" , get_patient_id(i->info->paciente), i->info->machine_id, i->info->timecount);
-      printf("\n");
+   if (queue->front == NULL){
+      printf("Sem maquinas em andamento");
+   }
+   else{
+      for (QueueNodeMachine *i = queue->front; i != NULL; i = i->next){
+         printf("ID: %d, Maquina: %d Tempo na fila: %d" , get_patient_id(i->info->paciente), i->info->machine_id, i->info->timecount);
+         printf("\n");
+      }
    }
 }
 
@@ -111,7 +117,7 @@ int get_machine_id(Machine *machine){
 }
 
 /*Caso haja um paciente na fila de espera, coloque ele em uma máquina e aloque ela na fila de máquinas*/
-int manage_machine_slots(QueueMachine *machinequeue, int machine_slots, QueuePatient *patientqueue, int exam_id, QueueExam *exam_queue, int machine_id){
+int manage_machine_slots(QueueMachine *machinequeue, int machine_slots, QueuePatient *patientqueue, int machine_id){
       if (queue_is_empty_patient(patientqueue)){
          return machine_slots;
       }
@@ -136,5 +142,13 @@ void run_machine_queue(QueueMachine *machinequeue){
 /*Função que verifica se o paciente deve sair da maquina*/
 int is_timecount_zero(QueueMachine *maquina_queue) {
    return maquina_queue->front->info->timecount == 0;
+}
+
+void clear_terminal() {
+#ifdef _WIN32
+    system("cls");
+#else
+    system("clear");
+#endif
 }
 

@@ -20,6 +20,8 @@ void write_report_in_file(FILE* report_file, Report* report);
 
 int queue_is_empty_exam(QueueExam *queue);
 
+void queue_free_exam(QueueExam *queue);
+
 void queue_enqueue_exam(QueueExam *queue, Exam *data);
 
 Exam *queue_dequeue_exam(QueueExam *queue);
@@ -36,6 +38,8 @@ int get_exam_patient_id(Exam *exame);
 
 int get_exam_rx_id(Exam *exame); 
 
+int get_time_report(Exam *aux_exam_2);
+
 struct tm* get_exam_time(Exam *exame); 
 
 char *get_exam_condition(Exam *exame);
@@ -46,8 +50,10 @@ char *create_diagnosis();
 
 int get_diagnostico_prio(char *diagnostico);
 
-void write_exam_in_file(Exam *exam, FILE *file, int i);
+void write_exam_in_file(Exam *exam, FILE *file);
 
 void enqueue_priority(Exam *exame, QueueExam *priority_queue);
+
+void time_report_update(QueueExam *exam_priority_queue);
 
 #endif

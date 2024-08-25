@@ -140,6 +140,9 @@ Exam *queue_dequeue_exam(QueueExam *queue){
    return data;
 }
 
+int get_time_report(Exam *aux_exam_2){
+   return aux_exam_2->report;
+}
 
 void queue_free_exam(QueueExam *queue){
    for (QueueNodeExam *i = queue->front; i->next != NULL; i = i->next){
@@ -153,13 +156,17 @@ void queue_free_exam(QueueExam *queue){
 
 
 void queue_print_exam(QueueExam *queue){
-   printf("\n");
-   for (QueueNodeExam *i = queue->front; i != NULL; i = i->next){
-      printf("ID: %d, CONDICAO: %s, PRIORIDADE: %d", i->info->id, i->info->condition_IA,i->info->prio);
+   if (queue->front == NULL){
+      printf("Nao ha exames em aguardo");
+   }
+   else{
+      printf("\n");
+      for (QueueNodeExam *i = queue->front; i != NULL; i = i->next){
+         printf("ID: %d, CONDICAO: %s, PRIORIDADE: %d", i->info->id, i->info->condition_IA,i->info->prio);
+         printf("\n");
+      }
       printf("\n");
    }
-   printf("\n");
-   
 }
 
 void destroy_exam(Exam *exame){
@@ -255,7 +262,7 @@ int get_diagnostico_prio(char *diagnostico){
    }
 }
 
-void write_exam_in_file(Exam *exam, FILE *file, int i){
+void write_exam_in_file(Exam *exam, FILE *file){
    char* condition = get_exam_condition(exam);
    struct tm *data_hora_atual = get_exam_time(exam);
    int patient_id = get_exam_patient_id(exam);
@@ -265,7 +272,7 @@ void write_exam_in_file(Exam *exam, FILE *file, int i){
    int dia = data_hora_atual->tm_mday;
    int mes = data_hora_atual->tm_mon+1;
    int ano = data_hora_atual->tm_year +1900;
-   fprintf(file, ("ID do Exame: %d, Maquina Utilizada: %d, ID do Paciente: %d, Condicao: %s, Prioridade: %d, HoraDeEntrada: %d/%d/%d Iteração: %d, \n"), exam_id, machine_id, patient_id, condition,prio,dia,mes,ano,i);
+   fprintf(file, ("ID do Exame: %d, Maquina Utilizada: %d, ID do Paciente: %d, Condicao: %s, Prioridade: %d, HoraDeEntrada: %d/%d/%d\n"), exam_id, machine_id, patient_id, condition,prio,dia,mes,ano);
 }
 
 void enqueue_priority(Exam *exame, QueueExam *priority_queue){
@@ -298,4 +305,8 @@ void write_report_in_file(FILE* report_file, Report* report){
    fprintf(report_file,("ID: %d, Exam_ID: %d, Codition: %s, Timestamp: %d:%d:%d\n"), report->id,report->exam_id,report->condition,hours,minutes,seconds);
 }
 
-
+void time_report_update(QueueExam *exam_priority_queue){
+   for (QueueNodeExam *i = exam_priority_queue->front; i != NULL; i = i->next){
+      i->info->report++;      
+   }
+}

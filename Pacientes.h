@@ -18,6 +18,8 @@ void queue_enqueue_patient(QueuePatient *queue, Patient *data);
 
 Patient *queue_dequeue_patient(QueuePatient *queue);
 
+void queue_free_patient(QueuePatient *queue);
+
 void queue_print_patient(QueuePatient *queue);
 
 int get_patient_id(Patient* paciente); 
@@ -31,5 +33,4 @@ void destroy_patient(Patient *paciente);
 void write_patient_in_file(Patient *paciente, FILE *paciente_file, int i);
 
 int get_n_patient_queue(QueuePatient *queue);
-
 #endif

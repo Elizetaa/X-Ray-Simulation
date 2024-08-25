@@ -29,10 +29,12 @@ Patient *get_machine_patient(Machine *machine);
 
 int get_machine_id(Machine *machine);
 
-int manage_machine_slots(QueueMachine *machinequeue, int machine_slots, QueuePatient *patientqueue, int exam_id, QueueExam *exam_queue, int machine_id);
+int manage_machine_slots(QueueMachine *machinequeue, int machine_slots, QueuePatient *patientqueue, int machine_id);
 
 void run_machine_queue(QueueMachine *machine);
 
 int is_timecount_zero(QueueMachine *maquina_queue);
+
+void clear_terminal(); 
 
 #endif
