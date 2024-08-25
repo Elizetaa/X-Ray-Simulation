@@ -108,7 +108,7 @@ int main()
             }
             report_temp++;
         }
-
+        /*Impressão eventual de relatórios*/
         if(i%4320 == 0){
             clear_terminal();
             percent_report = (100*(report_id-1))/caried_exams;
@@ -128,12 +128,12 @@ int main()
         }
 
     }
-    
     fprintf(report_file,("\n\nLaudos realizados em hora extra\n\n"));
     fprintf(exam_file,("\n\nExames realizados em hora extra\n\n"));
     fprintf(patient_file,("\n\nPacientes atendididos em hora extra\n\n"));
-
+    
     patients_cared_ET =get_n_patient_queue(patient_queue);
+    /*Realização dos exames restantes fora do horário padrão*/
     while (!queue_is_empty_machine(machine_queue) || !queue_is_empty_patient(patient_queue) || !queue_is_empty_exam(exam_priority_queue)) {
         machine_slots = manage_machine_slots(machine_queue, machine_slots, patient_queue, machine_id);
         machine_id += 1;
@@ -173,11 +173,12 @@ int main()
             report_temp++;
         }
     }
+    /*Impressão de relatório de hora extra*/
     printf("\n\n");
     printf("Pacientes atendidos em hora extra: %d\n", patients_cared_ET);
     printf("Exames realizados em hora extra: %d\n", caried_exams_ET);
     printf("Laudos realizados em hora extra: %d", reports_created_ET);
-    
+    /*Liberação da memória restante*/
     queue_free_machine(machine_queue);
     queue_free_exam(exam_priority_queue);
     queue_free_patient(patient_queue);
