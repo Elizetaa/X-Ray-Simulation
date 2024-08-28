@@ -5,12 +5,13 @@ Este projeto simples com foco em manipulação de estruturas, criação de TAD's
 O programa realiza uma simulação de realizações de exames de Raio-X e cria arquivos contendo os dados gerados e cria relatórios periódicos no terminal.
 
 ## Requisito:
-  - Compilador para C (gcc)
+  - Compilador para C (gcc versão 11)
   - Linguagem C instalada e funcionando
   - Make instalado.
+  - Sistema operacional Ubuntu(22.04)
     
 ## Como executar
-O primeiro passo é fazer o download de todos os arquivos na branch main e abrir a pasta contendo os downloads em algum compilador que compile C. Utilize o comando `Make all` e execute o trabalho.exe que deverá ser criado.
+O primeiro passo é fazer o download de todos os arquivos na branch main e abrir a pasta contendo os downloads em algum compilador que compile C. Utilize o comando `make clean` para garantir que não haja nenhum arquivo já compilado com o mesmo nome instalado, e após isso utilize o comando `Make all`. Em seguida digite ./trabalho.exe para executar o programa.
 Nota: Serão criados três arquivos.txt referentes ao programa, você pode observar e alterar ele de acordo com sua vontade.
 
 ## TAD's
