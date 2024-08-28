@@ -34,7 +34,6 @@ Os Tipos Abstratos de Dados criados para suprir as necessidades ficaram de certa
 
 ## Implementações
 Dentro de cada biblioteca há funções para manipulação de cada TAD definido dentro do próprio arquivoa, em que todas tem seu funcionamento documentado dentro de cada arquivo.h. Em cada arquivo, as funções são muito parecidas, como a criação de filas, o adicionar e remover de elementos na fila e a liberação de memória alocada presente em todas elas. 
-Obs. Nem todas funções foram utilizadas.
 
 ## Decisões de Implementação
 Algumas implementações foram feitas de maneira específica para facilitar o desenvolvimento, como a padronização na criação de filas para cada processo, já que essa estrutura estava sendo amplamente utilizada. Devido às necessidades comuns entre as bibliotecas, padronizamos as funções e adotamos a convenção de utilizar inglês nas variáveis do código. Além disso, decidimos utilizar as bibliotecas `assert.h` para garantir a alocação de memória após o uso do malloc, `string.h` para copiar dados, `unistd.h` para criar e editar arquivos, e `time.h` para adquirir datas e horas específicas e fazer pausas no programa. Também foi criada uma função separada para calcular as horas extras dos médicos, permitindo a finalização dos exames após o período definido, além de possibilitar a alteração de alguns parâmetros no código principal (`main`).
