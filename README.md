@@ -10,9 +10,8 @@ O programa realiza uma simulação de realizações de exames de Raio-X e cria a
   - Make instalado.
     
 ## Como executar
-  Faça o download de todos os arquivos na branch main e abra a pasta com os downloads em algum compilador que compile C.
-  Utilize o comando `Make all` (este comando pode variar, consulte como será em seu sistema.) e execute o trabalho.exe que deverá ser criado.
-  Nota: Serão criados três arquivos.txt referentes ao programa, você pode observar e alterar ele de acordo com sua vontade.
+O primeiro passo é fazer o download de todos os arquivos na branch main e abrir a pasta contendo os downloads em algum compilador que compile C. Utilize o comando `Make all` e execute o trabalho.exe que deverá ser criado.
+Nota: Serão criados três arquivos.txt referentes ao programa, você pode observar e alterar ele de acordo com sua vontade.
 
 ## TAD's
 Os Tipos Abstratos de Dados criados para suprir as necessidades ficaram de certa forma padronizados, a maior parte seguindo a ideia de uma fila, e separados entre três bibliotecas próprias.
