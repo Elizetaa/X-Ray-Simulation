@@ -52,7 +52,8 @@ Exam* create_exam(int id, int patient_id, int rx_id, struct tm *time, char *cond
     exame->patient_id = patient_id;
     exame->rx_id = rx_id;
     exame->timestamp = time;
-    exame->condition_IA = condition_IA;
+    exame->condition_IA = (char *)malloc(sizeof(char) * strlen(condition_IA));
+    strcpy(exame->condition_IA, condition_IA);
     exame->prio = prio;
     exame->report = 30;
     return exame;
@@ -86,19 +87,6 @@ Report *create_report(Exam *exame, int id){
 
 
 
-void destroy_report(Report *report){
-   assert(report != NULL);
-   free(report->condition);
-   free(report);
-}
-
-void print_file_report(Report *report){
-   int hours = report->timestamp->tm_hour;
-   int minutes = report->timestamp->tm_min;
-   int seconds = report->timestamp->tm_sec;
-   printf("ID: %d, Exam_ID: %d, Codition: %s, Timestamp: %d:%d:%d", report->id,report->exam_id,report->condition,hours,minutes,seconds);
-}
-
 QueueExam *queue_create_exam(){
    QueueExam *queue = (QueueExam *)malloc(sizeof(QueueExam));
    assert(queue != NULL);
@@ -106,11 +94,9 @@ QueueExam *queue_create_exam(){
    return queue; 
 }
 
-
 int queue_is_empty_exam(QueueExam *queue){
    return queue->front == NULL; 
 }
-
 
 void queue_enqueue_exam(QueueExam *queue, Exam *data){
    QueueNodeExam *q = (QueueNodeExam *)malloc(sizeof(QueueNodeExam));
@@ -152,26 +138,6 @@ void queue_free_exam(QueueExam *queue) {
         noatual = next;
     }
     free(queue); 
-}
-
-
-void queue_print_exam(QueueExam *queue){
-   if (queue->front == NULL){
-      printf("Nao ha exames em aguardo");
-   }
-   else{
-      printf("\n");
-      for (QueueNodeExam *i = queue->front; i != NULL; i = i->next){
-         printf("ID: %d, CONDICAO: %s, PRIORIDADE: %d", i->info->id, i->info->condition_IA,i->info->prio);
-         printf("\n");
-      }
-      printf("\n");
-   }
-}
-
-void destroy_exam(Exam *exame){
-    free(exame->condition_IA);
-    free(exame);
 }
 
 int get_exam_id(Exam *exame){

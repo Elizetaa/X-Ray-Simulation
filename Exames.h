@@ -14,12 +14,6 @@ QueueExam *queue_create_exam();
 /*Cria um laudo*/
 Report *create_report(Exam *exame, int id);
 
-/*Destroi um laudo */
-void destroy_report(Report *report);
-
-/*Imprime as informações de um laudo*/
-void print_file_report(Report *report);
-
 /*Escreve as informações de um laudo em um arquivo*/
 void write_report_in_file(FILE* report_file, Report* report);
 
@@ -35,14 +29,8 @@ void queue_enqueue_exam(QueueExam *queue, Exam *data);
 /*Remove o primeiro elemento da fila de uma fila de exames*/
 Exam *queue_dequeue_exam(QueueExam *queue);
 
-/*Imprime os exames de uma fila de exames*/
-void queue_print_exam(QueueExam *queue);
-
 /*Cria um novo Exame*/
 Exam* create_exam(int id, int patient_id, int rx_id, struct tm *time, char *condition_IA, int prio); 
-
-/*Limpa a memória de um exame*/
-void destroy_exam(Exam *exame); 
 
 /*Coleta o ID de um exame*/
 int get_exam_id(Exam *exame); 

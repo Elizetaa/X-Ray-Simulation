@@ -87,18 +87,6 @@ void queue_free_machine(QueueMachine *queue) {
     free(queue);
 }
 
-void queue_print_machine(QueueMachine *queue){
-   if (queue->front == NULL){
-      printf("Sem maquinas em andamento");
-   }
-   else{
-      for (QueueNodeMachine *i = queue->front; i != NULL; i = i->next){
-         printf("ID: %d, Maquina: %d Tempo na fila: %d" , get_patient_id(i->info->paciente), i->info->machine_id, i->info->timecount);
-         printf("\n");
-      }
-   }
-}
-
 void destroy_machine(Machine *machine){
     destroy_patient(machine->paciente);
     free(machine);

@@ -61,8 +61,6 @@ int main()
             write_patient_in_file(paciente, patient_file, i);
             queue_enqueue_patient(patient_queue, paciente);
             ids += 1;
-            /*Nota dos alunos: não sabemos por que, e nem como, mas esse segmento do código não funciona caso esteja fora da condicional. Em lógica
-            era pra ser realizado a todo momento, não só quando aux for igual a zero, mas por algum motivo funciona como deve desta maneira. */
             machine_slots = manage_machine_slots(machine_queue, machine_slots, patient_queue, machine_id);
             machine_id += 1;
             if (machine_id > 5) {
@@ -74,6 +72,7 @@ int main()
           
         /*Criação do primeiro laudo usando IA + Enfileramento na fila de prioridade dos elementos*/
         if (!queue_is_empty_machine(machine_queue)){
+            /*Checa se o paciente deve sair da máquina, cria seu exame, e insere ele em uma fila de prioridade*/
             if (is_timecount_zero(machine_queue)){
                 aux_machine = queue_dequeue_machine(machine_queue);
                 caried_exams_bytime ++;
@@ -89,8 +88,6 @@ int main()
                 machine_slots++;
                 caried_exams++;
                 
-                free(aux_codition);
-                destroy_machine(aux_machine);
             }
         }  
         
@@ -103,8 +100,7 @@ int main()
                 Report * aux_report = create_report(aux_exam_2, report_id);
                 report_id++;
                 write_report_in_file(report_file, aux_report);
-                destroy_exam(aux_exam_2);
-                destroy_report(aux_report);
+
             }
             report_temp++;
         }
@@ -113,13 +109,12 @@ int main()
             clear_terminal();
             percent_report = (100*(report_id-1))/caried_exams;
             avarage_report_time = (total_time_report/report_id-1);
-            printf("Numero de pacientes que visitaram o hospital: %d\n",ids-1);
+            printf("\nNumero de pacientes que visitaram o hospital: %d\n",ids-1);
             printf("Numero de Pacientes em espera: %d\n",get_n_patient_queue(patient_queue));
             printf("Numero de exames ja realizados: %.0f\n", caried_exams);
             printf("Numero de pacientes com laudo %d\n", report_id-1);
             printf("Percentual de exames com laudo: %.3f%%\n", percent_report);
-            printf("Tempo medio de espera para laudo: Aprocimadamente %.d unidades de tempo", avarage_report_time);
-            printf("\n");
+            printf("Tempo medio de espera para laudo: Aproximadamente %.d unidades de tempo\n", avarage_report_time);
             printf("Numero de exames realizados em ate 7200 unidades de tempo: %d", caried_exams_bytime);
             sleep(1);
             if (i%7200 == 0){
@@ -155,8 +150,6 @@ int main()
                 exam_id++;
                 machine_slots++;
                 caried_exams++;
-                free(aux_codition);
-                destroy_machine(aux_machine);
             }
         }
 
@@ -167,8 +160,6 @@ int main()
                 report_id++;
                 reports_created_ET++;
                 write_report_in_file(report_file, aux_report);
-                destroy_exam(aux_exam_3);
-                destroy_report(aux_report);
             }
             report_temp++;
         }
@@ -177,13 +168,26 @@ int main()
     printf("\n\n");
     printf("Pacientes atendidos em hora extra: %d\n", patients_cared_ET);
     printf("Exames realizados em hora extra: %d\n", caried_exams_ET);
-    printf("Laudos realizados em hora extra: %d", reports_created_ET);
-    /*Liberação da memória restante*/
+    printf("Laudos realizados em hora extra: %d\n", reports_created_ET);
+
+    /* Liberação da memória restante */
     queue_free_machine(machine_queue);
-    queue_free_exam(exam_priority_queue);
+
+    /* Libera a fila de pacientes */
     queue_free_patient(patient_queue);
-    /*fecha o arquivo patient_file.txt*/
+
+    /* Libera a fila de exames */
+    queue_free_exam(exam_priority_queue);
+
+    /* Libera os ponteiros auxiliares usados que ainda não foram liberados */
+    
+    if (aux_machine) {
+        destroy_machine(aux_machine);
+    }
+    
+    /* Fechamento dos arquivos */
     fclose(patient_file);
     fclose(exam_file);
     fclose(report_file);
+    printf("Fim do programa.\n");
 }

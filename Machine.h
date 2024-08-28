@@ -24,14 +24,8 @@ Machine *queue_dequeue_machine(QueueMachine *queue);
 /*Libera memoria de uma fila de maquinas*/
 void queue_free_machine(QueueMachine *queue);
 
-/*Imprime os elementos de uma fila de máquinas*/
-void queue_print_machine(QueueMachine *queue);
-
 /*Libera memória de uma unica máquina*/
 void destroy_machine(Machine *machine);
-
-/*Recolhe o tempo de realização do exame*/
-int get_machine_timecount(Machine *machine);
 
 /*Recolhe o paciente que está dentro da maquina*/
 Patient *get_machine_patient(Machine *machine);
