@@ -1,8 +1,9 @@
 ## Estrutura de Dados - Luiz Felipe Elizeta dos Santos e Caio Cesar Oliva Coronel
+# Agradecimentos
+Bruno Chevitarezzi, Aluno do IFES Serra, ajudou a identificar erros de lógica durante o código
+Nailson Roveta, Ex gerente da arcelor e analista de sistemas, ajudou a identificar problemas de documentação do código
 # Sistema de Gestão de Pacientes e Exames
-
-Este projeto simples com foco em manipulação de estruturas, criação de TAD's e bibliotecas próprias em C.
-O programa realiza uma simulação de realizações de exames de Raio-X e cria arquivos contendo os dados gerados e cria relatórios periódicos no terminal.
+Esse algoritimo realiza uma simulação de exames de raio-x. Um paciente chega ao hospital (com uma chance de 20% de ocorrer esse evento) e é alocado em uma fila de pacientes. Os pacientes em aguardo nessa fila são alocados entre 5 maquinas diferentes, e após a realização do exeme recebe um pre diagnóstico determinado por uma semi inteligencia artificial, em seguida um médico que não come, não dorme, e trabalha 24/7 irá analizar a situação desse paciente e determinar se o pre diagnóstico está correto ou não, dando uma nova condição ao paciente caso o exame realizado esteja incorreto. Durante o algoritimo, os pacientes que chegam ao hospital, os pré diagnósticos e os laudos médicos são salvos em seus respecitivos arquivos txt que simulam um banco de dados.
 
 ## Requisito:
   - Compilador para C (gcc versão 11)
@@ -42,3 +43,6 @@ Dentro de cada biblioteca há funções para manipulação de cada TAD definido 
 Algumas implementações foram feitas de maneira específica para facilitar o desenvolvimento, como a padronização na criação de filas para cada processo, já que essa estrutura estava sendo amplamente utilizada. Devido às necessidades comuns entre as bibliotecas, padronizamos as funções e adotamos a convenção de utilizar inglês nas variáveis do código. Além disso, decidimos utilizar as bibliotecas `assert.h` para garantir a alocação de memória após o uso do malloc, `string.h` para copiar dados, `unistd.h` para criar e editar arquivos, e `time.h` para adquirir datas e horas específicas e fazer pausas no programa. 
 
 Como decisão extra, realizamos as operações restantes fora do looping principal e salvamos ela nos arquivos TXT em uma área separada. 
+
+Quanto as complicações encontramos muitos erros relacionados a alocação e liberação de memória, ao longo do tempo fomos corrigindo esses problemas e econtrando a melhor forma de impedir o vasamento de memória. Outro ponto crucial foi que percebemos durante a execução que o numero de pacientes na fila de paciente continua zerado por um tempo prolongado e não haviamos entendido que isso era normal, isso ocorre por conta que a quantidade de pacientes que chega não é o suficiente para que todas as máquinas estejam ocupada por um periodo muito longo, diminuir a quantidade de máquinas disponiveis ou aumentar a quantidade de paciente que chega (ambos em algoritimos de teste, não no final) nos fez entender isso.
+
