@@ -11,34 +11,32 @@ Esse algoritimo realiza uma simulação de exames de raio-x. Um paciente chega a
   - Sistema operacional Ubuntu(22.04)
     
 ## Como executar
-O primeiro passo é fazer o download de todos os arquivos na branch main. Em seguida, compile o código do programa. O arquivo makefile contém as receitas all, que pode ser utilizada para compilação de todo o código, e clean, a qual irá remover os arquivos binários gerados da receita all.
+O primeiro passo é fazer o download de todos os arquivos na branch main. Em seguida compile o código do programa, o arquivo makefile contém as receitas all, que pode ser utilizada para compilação de todo o código, e clean, a qual irá remover os arquivos binários gerados da receita all. A receita all irá gerar o arquivo executável trabalho.exe, o qual é responsável por executar o projeto. Ao final da execução, serão criados três arquivos.txt referentes ao banco de dados do programa, você pode observar e alterar ele de acordo com sua vontade.
 
 ## TAD's
-Os Tipos Abstratos de Dados criados para suprir as necessidades ficaram de certa forma padronizados, a maior parte seguindo a ideia de uma fila, e separados entre três bibliotecas próprias.
+Os tipos abstratos de dados utilizados no programa, são responsáveis por armazenar informações referentes aos objetos. Os TAD's utilizadas são divididas em três categorias: Filas (First in First out), Nós (Elementos dentro das filas), e objetos (Exames, Pacientes, Máquinas e Laudos). Segue abaixo todos os TAD's e suas respectivas bibliotecas onde estão armazenadas:
 
 ### Exames
-  - `Exam:` Estrutura referente ao exame realizado após o paciente sair da máquina. Contem: um ID para o exame, o ID da maquina em que o exame foi realizado, o ID do paciente, a condição do gerada, o timestamp, a prioridade desse exame, e uma variavel report para contador de tempo de aguardo.
-  - `QueueExam:` Uma estrutura de fila que armazena estruturas do tipo QueueNodeExam. Recebe o nó da frente e do final da fila.
-  - `QueueNodeExam:` Estrutura do tipo nó, cada nó contem uma estrutura do tipo Exam e outra estrutura do tipo QueueNodeExam referente ao elemento á seguinte este .
-  - `Report:` Estrutura referente ao laudo gerado pelo médico. Contem: um ID para o laudo, o ID do exame referente ao laudo, a condição dada pelo médico (podendo ser, ou não, a condição do exame) e seu timestamp.
+  - `Exam:` Estrutura da categoria objeto referente ao exame realizado após o paciente sair da máquina. Contem: um ID para o exame, o ID da maquina em que o exame foi realizado, o ID do paciente, a condição do gerada, o timestamp, a prioridade desse exame, e uma variavel report para contador de tempo de aguardo.
+  - `QueueExam:` Uma estrutura da categoria fila que armazena estruturas do tipo QueueNodeExam. Recebe o nó da frente e do final da fila.
+  - `QueueNodeExam:` Estrutura da categoria nó, cada nó contem uma estrutura do tipo Exam e outra estrutura do tipo QueueNodeExam referente ao elemento á seguinte este .
+  - `Report:` Estrutura da categoria objeto referente ao laudo gerado pelo médico. Contem: um ID para o laudo, o ID do exame referente ao laudo, a condição dada pelo médico (podendo ser, ou não, a condição do exame) e seu timestamp.
 
 ### Machine
-  - `Machine:` Uma estrutura referente as máquinas que irão realizar os atendimentos, a lógica do código permite que somente cinco dessas existam de maneira simultanea. Contem: uma estrutura paciente pra armazenar o paciente alocado na máquina, um ID referente ao ID da maquina em uso (de 1 a 5) e um inteiro TimeCount referente ao contador do tempo que o paciente deve ficar na máquina
-  - `QueueMachine:` Uma estrutura do tipo fila que armazena estruturas do tipo QueueNodeExam. Recebe o nó da frente e do final da fila.
-  - `QueueNodeMachine:` Estrutura do tipo Nó, cada nó contem uma estrutura do tipo Machine e outra estrutura do tipo QueueNodeMachine referente ao nó seguinte da fila.
+  - `Machine:` Uma estrutura da categoria objeto referente as máquinas que irão realizar os atendimentos, a lógica do código permite que somente cinco dessas existam de maneira simultanea. Contem: uma estrutura paciente pra armazenar o paciente alocado na máquina, um ID referente ao ID da maquina em uso (de 1 a 5) e um inteiro TimeCount referente ao contador do tempo que o paciente deve ficar na máquina
+  - `QueueMachine:` Uma estrutura da categoria fila que armazena estruturas do tipo QueueNodeExam. Recebe o nó da frente e do final da fila.
+  - `QueueNodeMachine:` Estrutura da categoria Nó, cada nó contem uma estrutura do tipo Machine e outra estrutura do tipo QueueNodeMachine referente ao nó seguinte da fila.
 
 ### Pacientes
-  - `Patient:` Estrutura referente aos pacientes que chegam ao hospital. Contem: um ID para cada paciente, um char referente ao nome deste paciente e seu Timestamp.
-  - `QueuePatient:` Uma estrutura do tipo fila que armazena estruturas do tipo QueueNodePatient. Recebe o nó da frente e do final da fila.
-  - `QueueNodePatient:` Estrutura do tipo nó que será armazenada em estruturas do tipo QueuePatient. Contem: uma estrutura do tipo Patient referente ao paciente que está nessa posição da fila e outra estrutura QueueNodePatient referente ao próximo paciente na fila.
+  - `Patient:` Estrutura da categoria objeto referente aos pacientes que chegam ao hospital. Contem: um ID para cada paciente, um char referente ao nome deste paciente e seu Timestamp.
+  - `QueuePatient:` Uma estrutura da categoria fila que armazena estruturas do tipo QueueNodePatient. Recebe o nó da frente e do final da fila.
+  - `QueueNodePatient:` Estrutura da categoria nó que será armazenada em estruturas do tipo QueuePatient. Contem: uma estrutura do tipo Patient referente ao paciente que está nessa posição da fila e outra estrutura QueueNodePatient referente ao próximo paciente na fila.
 
 ## Implementações
-Dentro de cada biblioteca há funções para manipulação de cada TAD definido dentro do próprio arquivoa, em que todas tem seu funcionamento documentado dentro de cada arquivo.h. Em cada arquivo, as funções são muito parecidas, como a criação de filas, o adicionar e remover de elementos na fila e a liberação de memória alocada presente em todas elas. 
+A Implementação do código segue o formato do diagrama fornecido pela especificação do trabalho (arquivo tp2.pdf), com a decisão da dupla de manter o médico como uma váriavel e não como uma estrutura. Isso permitiu que o funcionamento do código fosse relativamente mais rápido a caso ele fosse uma estrutura(foi pouco, mas dá pra perceber a diferença, já que eu não preciso criar uma nova estrutura dentro do código principal). Outra decisão de implementação foi quanto às máquinas disponiveis, as estruturas maquinas somente são criadas caso haja um slot disponivel (slots são armazenados em uma variável chamada "machine_slots", que é um inteiro que vai de 0 a 5), isso deixa o código um pouco mais lento já que temos que criar varias máquinas a todo momento, porém nos ajuda muito quanto a impedir vazamento de memória.
 
-## Decisões e complicações durante a implementação
-Algumas implementações foram feitas de maneira específica para facilitar o desenvolvimento, como a padronização na criação de filas para cada processo, já que essa estrutura estava sendo amplamente utilizada. Devido às necessidades comuns entre as bibliotecas, padronizamos as funções e adotamos a convenção de utilizar inglês nas variáveis do código. Além disso, decidimos utilizar as bibliotecas `assert.h` para garantir a alocação de memória após o uso do malloc, `string.h` para copiar dados, `unistd.h` para criar e editar arquivos, e `time.h` para adquirir datas e horas específicas e fazer pausas no programa. 
+Como decisão extra, terminamos todas as operações que estavam em aguardo ao fim do looping principal (que por definição dura 43200 ciclos)
 
-Como decisão extra, realizamos as operações restantes fora do looping principal e salvamos ela nos arquivos TXT em uma área separada. 
-
-Quanto as complicações encontramos muitos erros relacionados a alocação e liberação de memória, ao longo do tempo fomos corrigindo esses problemas e encontrando a melhor forma de impedir o vazamento de memória. Outro ponto crucial foi que percebemos durante a execução que o numero de pacientes na fila de paciente continuava zerado por um tempo prolongado e não haviamos entendido que isso era normal, isso ocorre por conta  da quantidade de pacientes que chega que não é o suficiente para que todas as máquinas estejam ocupada por um periodo muito longo, diminuir a quantidade de máquinas disponiveis ou aumentar a quantidade de paciente que chega (ambos em algoritimos de teste, não no final) nos fez entender isso.
+## Complicações durante a implementação
+Quanto as complicações encontramos muitos erros relacionados a alocação e liberação de memória, ao longo do tempo fomos corrigindo esses problemas e encontrando a melhor forma de impedir o vazamento de memória. Outro ponto crucial foi que percebemos durante a execução que o numero de pacientes na fila de paciente continuava zerado por um tempo prolongado e não haviamos entendido que isso era normal, isso ocorre por conta da quantidade de pacientes que chega que não é o suficiente para que todas as máquinas estejam ocupada por um periodo muito longo, diminuir a quantidade de máquinas disponiveis ou aumentar a quantidade de paciente que chega (ambos em algoritimos de teste, não no final) nos fez entender isso.
 
