@@ -64,6 +64,8 @@ int main()
         /*Arquivo de laudo*/
         FILE *report_file = fopen("db_report.txt", "a+");
     
+    /*Escreve o cabeçalho nos arquivos*/
+    fprintf(patient_file,("ID do paciente, Nome do Paciente, Data de entrada do paciente, Iteração do looping"));
     /*Definição da seed como nula para criar númeroa aleatórios*/
     srand(time(NULL));
     
