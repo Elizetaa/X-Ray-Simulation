@@ -28,7 +28,7 @@ run: $(TARGET)
 
 # Clean up
 clean:
-	rm -f $(OBJS) $(TARGET) *.txt
+	rm -f $(OBJS) $(TARGET)
 
 # Compile source files into object files
 %.o: %.c
