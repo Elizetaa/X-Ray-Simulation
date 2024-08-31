@@ -37,8 +37,6 @@ struct report{
    int exam_id;
    char *condition;
    struct tm *timestamp;
-   int time;
-
 };
 
 Exam* create_exam(int id, int patient_id, int rx_id, struct tm *time, char *condition_IA, int prio){ 
@@ -67,7 +65,6 @@ Report *create_report(Exam *exame, int id){
    time(&segundos);
    int p = rand()%100;
    char *a;
-   report->time = 0;
    if (p < 80){
       report->condition = exame->condition_IA;
    }
