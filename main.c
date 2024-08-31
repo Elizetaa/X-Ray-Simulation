@@ -140,8 +140,9 @@ int main()
                 
             /*Paciente sai da máquina*/
             aux_machine = queue_dequeue_machine(machine_queue);
-            caried_exams_bytime ++;
-                
+            if (i <=7200){
+                caried_exams_bytime ++;
+            }    
             /*Cria um diagnostico*/
             char *aux_codition = create_diagnosis();
                 
@@ -202,9 +203,7 @@ int main()
             printf("Tempo medio de espera para laudo: Aproximadamente %.d unidades de tempo\n", avarage_report_time);
             printf("Numero de exames realizados em ate 7200 unidades de tempo: %d\n", caried_exams_bytime);
             usleep(5000);
-            if (i%7200 == 0){
-                caried_exams_bytime = 0;
-            }
+            
         }
 
     }
