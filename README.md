@@ -1,7 +1,6 @@
 # Estrutura de Dados - Luiz Felipe Elizeta dos Santos e Caio Cesar Oliva Coronel
 ## Agradecimentos
-Bruno Chevitarezzi, Aluno do IFES Serra, ajudou a identificar erros de lógica durante o código
-Nailson Roveta, Ex gerente da arcelor e analista de sistemas, ajudou a identificar problemas de documentação do código
+Agradecimentos especiais para Bruno Chevitarezzi, Aluno do IFES Serra, que nos ajudou a identificar erros de lógica durante o desenvolvimento. E Nailson Roveta, Ex gerente da arcelor e analista de sistemas, que nos ajudou a identificar problemas de documentação do código.
 # Sistema de Gestão de Pacientes e Exames
 Esse algoritimo realiza uma simulação de exames de raio-x. Um paciente chega ao hospital (com uma chance de 20% de ocorrer esse evento) e é alocado em uma fila de pacientes. Os pacientes em aguardo nessa fila são alocados entre 5 maquinas diferentes, e após a realização do exeme recebe um pre diagnóstico determinado por uma semi inteligencia artificial, em seguida um médico que não come, não dorme, e trabalha 24/7 irá analizar a situação desse paciente e determinar se o pre diagnóstico está correto ou não, dando uma nova condição ao paciente caso o exame realizado esteja incorreto. Durante o algoritimo, os pacientes que chegam ao hospital, os pré diagnósticos e os laudos médicos são salvos em seus respecitivos arquivos txt que simulam um banco de dados.
 
