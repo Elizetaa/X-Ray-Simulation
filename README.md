@@ -20,9 +20,9 @@ Nota: Serão criados três arquivos.txt referentes ao programa, você pode obser
 Os Tipos Abstratos de Dados criados para suprir as necessidades ficaram de certa forma padronizados, a maior parte seguindo a ideia de uma fila, e separados entre três bibliotecas próprias.
 
 ### Exames
-  - `Exam:` Contém todas as informações relativas ao exame em si para manipulações.
-  - `QueueExam:` Base da fila, onde através dela você pode acessar todos os elementos da fila.
-  - `QueueNodeExam:` Um elemento na fila.
+  - `Exam:` Estrutura referente ao exame realizado após o paciente sair da máquina. Contem: um ID para o exame, o ID da maquina em que o exame foi realizado, o ID do paciente, a condição do gerada, o timestemp, a prioridade desse exame, e uma variavel report para contador de tempo de aguardo.
+  - `QueueExam:` Uma estrutura de fila que armazena estruturas do tipo nó. Recebe o nó da frente e do final da fila.
+  - `QueueNodeExam:` Estrutura do tipo nó, cada nó contem uma estrutura do tipo Exam e o elemento seguinte este nó.
   - `Report:` Estrutura do documento final.
 
 ### Machine
