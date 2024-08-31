@@ -127,7 +127,7 @@ void write_patient_in_file(Patient *paciente, FILE *paciente_file, int i){
     int dia = data_hora_atual->tm_mday;
     int mes = data_hora_atual->tm_mon+1;
     int ano = data_hora_atual->tm_year +1900;
-    fprintf(paciente_file, ("Id: %d Nome: %s HoraDeEntrada: %d/%d/%d, Iteração: %d\n"),ids,nome,dia,mes,ano,i);
+    fprintf(paciente_file, ("Id: %d Nome: %s Data: %d/%d/%d, Iteração: %d\n"),ids,nome,dia,mes,ano,i);
 }
 
 int get_n_patient_queue(QueuePatient *queue){

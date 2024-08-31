@@ -228,7 +228,7 @@ int get_diagnostico_prio(char *diagnostico){
    }
 }
 
-void write_exam_in_file(Exam *exam, FILE *file){
+void write_exam_in_file(Exam *exam, FILE *file, int i){
    char* condition = get_exam_condition(exam);
    struct tm *data_hora_atual = get_exam_time(exam);
    int patient_id = get_exam_patient_id(exam);
@@ -238,7 +238,7 @@ void write_exam_in_file(Exam *exam, FILE *file){
    int dia = data_hora_atual->tm_mday;
    int mes = data_hora_atual->tm_mon+1;
    int ano = data_hora_atual->tm_year +1900;
-   fprintf(file, ("ID do Exame: %d, Maquina Utilizada: %d, ID do Paciente: %d, Condicao: %s, Prioridade: %d, HoraDeEntrada: %d/%d/%d\n"), exam_id, machine_id, patient_id, condition,prio,dia,mes,ano);
+   fprintf(file, ("ID do Exame: %d, Maquina Utilizada: %d, ID do Paciente: %d, Condicao: %s, Prioridade: %d, HoraDeEntrada: %d/%d/%d, Itereção: %d\n"), exam_id, machine_id, patient_id, condition,prio,dia,mes,ano, i);
 }
 
 void enqueue_priority(Exam *exame, QueueExam *priority_queue){
@@ -264,11 +264,11 @@ void enqueue_priority(Exam *exame, QueueExam *priority_queue){
 }
 
 
-void write_report_in_file(FILE* report_file, Report* report){
+void write_report_in_file(FILE* report_file, Report* report, int i){
    int hours = report->timestamp->tm_hour;
    int minutes = report->timestamp->tm_min;
    int seconds = report->timestamp->tm_sec;
-   fprintf(report_file,("ID: %d, Exam_ID: %d, Codition: %s, Timestamp: %d:%d:%d\n"), report->id,report->exam_id,report->condition,hours,minutes,seconds);
+   fprintf(report_file,("ID: %d, ID do Exame: %d, Condicao: %s, Data: %d:%d:%d, Iteracao: %d\n"), report->id,report->exam_id,report->condition,hours,minutes,seconds,i);
 }
 
 void time_report_update(QueueExam *exam_priority_queue){

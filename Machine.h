@@ -6,40 +6,42 @@ typedef struct XR_Machine Machine;
 typedef struct queue_machine QueueMachine;
 typedef struct queue_node_machine QueueNodeMachine; 
 
-/*Aloca um paciente em uma máquina*/
+/*Recebe um paciente e o ID deste paciente, e retorna uma máquina com essas informações*/
 Machine* create_machine(Patient *paciente, int machine_id);
 
-/*Cria uma nova fila de máquinas*/
+/*Retorna uma nova fila de máquinas*/
 QueueMachine *queue_create_machine();
 
-/*Verifica se a fila de máquinas está vazia*/
+/*Recebe uma fila de máquinas, verifica se ela está vazia e retorna um valor booleano */
 int queue_is_empty_machine(QueueMachine *queue);
 
-/*Aloca uma máquina em uma fila de máquinas*/
+/*Recebe uma fila de maquinas e uma maquina, e aloca esta maquina ao final desta fila*/
 void queue_enqueue_machine(QueueMachine *queue, Machine *data);
 
-/*Desenfilera um elemento de uma fila de máquinas*/
+/*Recebe uma fila de maquinas, retira o elemento na frente da fila e retorna a maquina removida*/
 Machine *queue_dequeue_machine(QueueMachine *queue);
 
-/*Libera memoria de uma fila de maquinas*/
+/*Recebe uma fila de maquinas e libera a memoria que pra ela foi alocada*/
 void queue_free_machine(QueueMachine *queue);
 
-/*Libera memória de uma unica máquina*/
+/*Recebe uma maquina e libera a memória que pra ela foi alocada*/
 void destroy_machine(Machine *machine);
 
-/*Recolhe o paciente que está dentro da maquina*/
+/*Recebe uma maquina e retorna o paciente que está alocado nela*/
 Patient *get_machine_patient(Machine *machine);
 
-/*Recolhe o ID da maquina*/
+/*Recebe uma máquina e retorna o ID inteiro destá maquina*/
 int get_machine_id(Machine *machine);
 
-/*Gerencia o funcionamento da máquina*/
+/*Recebe uma fila de maquinas, a quantidade de maquinas disponiveis, uma fila de pacientes e o ID de uma maquina, caso haja
+uma maquina disponivel, aloca o primeiro paciente da fila de maquinas em uma dessas maquinas e retorna o numero de maquinas
+disponiveis atualizado*/
 int manage_machine_slots(QueueMachine *machinequeue, int machine_slots, QueuePatient *patientqueue, int machine_id);
 
-/*Percorre o andamento dos exames*/
+/*Recebe uma fila de maquinas e atualiza o tempo que resta pra o fim do exame de todas as maquinas desta fila*/
 void run_machine_queue(QueueMachine *machine);
 
-/*Verifica se o tempo de realização do exame chegou ao fim*/
+/*Recebe uma fila de maquinas e retorna um valor booleano caso o exame tenha chegado ao fim*/
 int is_timecount_zero(QueueMachine *maquina_queue);
 
 /*Limpa o terminal*/

@@ -10,17 +10,17 @@
 
 
 
-struct queue_machine{ /* Nomeado como QueueMachine */
+struct queue_machine{ 
    QueueNodeMachine *front; 
    QueueNodeMachine *rear; 
 };
 
-struct queue_node_machine{ /* Nomeado como QueueNodeMachine */
+struct queue_node_machine{ 
    Machine *info;        
    QueueNodeMachine *next;   
 };
 
-struct XR_Machine{ /* nomeado como Machine */
+struct XR_Machine{
    Patient *paciente;
    int machine_id;
    int timecount;
@@ -30,7 +30,7 @@ Machine* create_machine(Patient *paciente, int machine_id){
     Machine* machine = (Machine*)malloc(sizeof(Machine));
     assert(paciente != NULL || machine != NULL);
     machine->paciente = paciente;
-    machine->timecount = 10;
+    machine->timecount = 11;
     machine->machine_id = machine_id;
     return machine;
 }
@@ -104,7 +104,6 @@ int get_machine_id(Machine *machine){
     return machine->machine_id;
 }
 
-/*Caso haja um paciente na fila de espera, coloque ele em uma máquina e aloque ela na fila de máquinas*/
 int manage_machine_slots(QueueMachine *machinequeue, int machine_slots, QueuePatient *patientqueue, int machine_id){
       if (queue_is_empty_patient(patientqueue)){
          return machine_slots;
@@ -118,7 +117,6 @@ int manage_machine_slots(QueueMachine *machinequeue, int machine_slots, QueuePat
       return machine_slots;
 }
 
-/*Subtraia -1 de todos os elementos que já estão na fila de máquinas, caso a fila de máquinas esteja vazia não prossiga*/
 void run_machine_queue(QueueMachine *machinequeue){
    if (!queue_is_empty_machine(machinequeue)){
       for (QueueNodeMachine *i = machinequeue->front; i != NULL; i = i->next){
@@ -127,7 +125,6 @@ void run_machine_queue(QueueMachine *machinequeue){
    }
 }
 
-/*Função que verifica se o paciente deve sair da maquina*/
 int is_timecount_zero(QueueMachine *maquina_queue) {
    return maquina_queue->front->info->timecount == 0;
 }
