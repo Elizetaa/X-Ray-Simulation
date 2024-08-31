@@ -11,8 +11,7 @@ Esse algoritimo realiza uma simulação de exames de raio-x. Um paciente chega a
   - Sistema operacional Ubuntu(22.04)
     
 ## Como executar
-O primeiro passo é fazer o download de todos os arquivos na branch main e abrir a pasta contendo os downloads em algum compilador que compile C. Utilize o comando `make clean` para garantir que não haja nenhum arquivo já compilado com o mesmo nome instalado, e após isso utilize o comando `Make all`. Em seguida digite ./trabalho.exe para executar o programa.
-Nota: Serão criados três arquivos.txt referentes ao programa, você pode observar e alterar ele de acordo com sua vontade.
+O primeiro passo é fazer o download de todos os arquivos na branch main. Em seguida, compile o código do programa. O arquivo makefile contém as receitas all, que pode ser utilizada para compilação de todo o código, e clean, a qual irá remover os arquivos binários gerados da receita all.
 
 ## TAD's
 Os Tipos Abstratos de Dados criados para suprir as necessidades ficaram de certa forma padronizados, a maior parte seguindo a ideia de uma fila, e separados entre três bibliotecas próprias.
