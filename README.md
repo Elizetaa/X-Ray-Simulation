@@ -1,5 +1,5 @@
-## Estrutura de Dados - Luiz Felipe Elizeta dos Santos e Caio Cesar Oliva Coronel
-# Agradecimentos
+# Estrutura de Dados - Luiz Felipe Elizeta dos Santos e Caio Cesar Oliva Coronel
+## Agradecimentos
 Bruno Chevitarezzi, Aluno do IFES Serra, ajudou a identificar erros de lógica durante o código
 Nailson Roveta, Ex gerente da arcelor e analista de sistemas, ajudou a identificar problemas de documentação do código
 # Sistema de Gestão de Pacientes e Exames
