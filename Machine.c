@@ -130,10 +130,6 @@ int is_timecount_zero(QueueMachine *maquina_queue) {
 }
 
 void clear_terminal() {
-#ifdef _WIN32
-    system("cls");
-#else
-    system("clear");
-#endif
+   system("clear");
 }
 

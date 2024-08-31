@@ -58,14 +58,16 @@ int main()
     /*Abertura dos arquivos na variável patient_file e exam_file, report_file*/
 
         /*Arquivo de paciente*/
-        FILE *patient_file = fopen("db_patient.txt", "a+");
+        FILE *patient_file = fopen("db_patient.txt", "w");
         /*Arquivo de exame*/
-        FILE *exam_file = fopen("db_exam.txt","a+");
+        FILE *exam_file = fopen("db_exam.txt","w");
         /*Arquivo de laudo*/
-        FILE *report_file = fopen("db_report.txt", "a+");
+        FILE *report_file = fopen("db_report.txt", "w");
     
     /*Escreve o cabeçalho nos arquivos*/
-    fprintf(patient_file,("ID do paciente, Nome do Paciente, Data de entrada do paciente, Iteração do looping"));
+    fprintf(patient_file,("ID do Paciente, Nome do Paciente, Hora de entrada do paciente, Data de entrada do paciente, Iteracao do looping\n\n"));
+    fprintf(exam_file,("ID do Exame, ID da Maquina Utilizada, ID do Paciente, Condicao do paciente, Prioridade de atendimento, Hora do fim do exame, Data do fim do exame, Iteracao do looping principal\n\n"));
+    fprintf(report_file,("ID do Laudo, ID do exame, Nova Condicao do Paciente, Hora de conclusao do laudo, Data de conclusao do laudo, Iteracao do Looping Principal.\n\n"));
     /*Definição da seed como nula para criar númeroa aleatórios*/
     srand(time(NULL));
     
@@ -95,7 +97,7 @@ int main()
         int avarage_report_time;
         /*Exames realizados por tempo definido*/
         int caried_exams_bytime = 0;
-        
+        Exam *aux_exam_2 = NULL;
 
     /*Variáveis de Relatório apos o looping principal*/
         /*Exames realizados ao fim do looping principal*/
@@ -166,24 +168,20 @@ int main()
         /*Cria laudos médicos*/
 
         /*Verifica se a fila de exames não está vazia*/
-        if (!queue_is_empty_exam(exam_priority_queue)){
+        if (!queue_is_empty_exam(exam_priority_queue) || aux_exam_2 != NULL){
             /*Atualiza o tempo em que os pacientes estão aguardando, para somar a média*/
             time_report_update(exam_priority_queue);
-            
-            /*Checa se o médico está disponivel*/
-            if (report_temp % 30 == 0 && report_temp!=0){
-                
-                /*Remove o exame da fila de prioridade*/
-                Exam *aux_exam_2 = queue_dequeue_exam(exam_priority_queue);
-                
-                /*Adiciona o tempo de espera à média*/
-                total_time_report += get_time_report(aux_exam_2);
-                
+            if (report_temp == 30){
                 /*Cria o laudo médico e escreve ele no banco de dados*/
                 Report * aux_report = create_report(aux_exam_2, report_id);
                 report_id++;
                 write_report_in_file(report_file, aux_report, i);
-
+                report_temp = 0;
+            }
+            if (report_temp == 0){
+                aux_exam_2 = queue_dequeue_exam(exam_priority_queue);
+                /*Adiciona o tempo de espera à média*/
+                total_time_report += get_time_report(aux_exam_2);
             }
             report_temp++;
         }
