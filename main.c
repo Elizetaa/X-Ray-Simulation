@@ -14,8 +14,9 @@ pessoas que nos deram apoio para realização deste algoritimo estão no read-me
 #include "Machine.h"
 #include <unistd.h>
 
+
 int main()
-{       
+{
     /*Declaração de variaveis e structs de tempo*/
     
         /*Tempo Atual*/
@@ -69,7 +70,7 @@ int main()
     fprintf(exam_file,("ID do Exame, ID da Maquina Utilizada, ID do Paciente, Condicao do paciente, Prioridade de atendimento, Hora do fim do exame, Data do fim do exame, Iteracao do looping principal\n\n"));
     fprintf(report_file,("ID do Laudo, ID do exame, Nova Condicao do Paciente, Hora de conclusao do laudo, Data de conclusao do laudo, Iteracao do Looping Principal.\n\n"));
     /*Definição da seed como nula para criar númeroa aleatórios*/
-    srand(time(NULL));
+    srand(0);
     
     /*Criação de uma fila para as máquinas ocupadas*/
 
@@ -97,6 +98,11 @@ int main()
         int avarage_report_time;
         /*Exames realizados por tempo definido*/
         int caried_exams_bytime = 0;
+        /*Tempo total de espera de pacientes com condição assinalada*/
+        int marked_codition_total_time = 0;
+        /*Tempo medio de condição assinalada pelo medico*/
+        int marked_codition_avarage_time = 0;
+        /*Exame auxiliar para operações*/
         Exam *aux_exam_2 = NULL;
 
     /*Variáveis de Relatório apos o looping principal*/
@@ -106,8 +112,10 @@ int main()
         int patients_cared_ET = 0;
         /*Laudos realizados apos o tempo do looping principal*/
         int reports_created_ET=0;
-    
-    
+        /*Condição assinalada pelo medico*/
+        char *condicao_assinalada = "Tuberculose";
+        /*Numero de pacientes com condição assinalada*/
+        int n_condicao_assinalada = 0;   
     /*Looping principal, contem a contagem do tempo em "unidades de tempo" e realiza as operações*/
     for (int i = 1; i <= unit_temp; i++) {
         /*Chance de 1 em cinco do paciente chegar ao hospital*/
@@ -183,6 +191,10 @@ int main()
                 aux_exam_2 = queue_dequeue_exam(exam_priority_queue);
                 /*Adiciona o tempo de espera à média*/
                 total_time_report += get_time_report(aux_exam_2);
+                if (strcmp(condicao_assinalada, get_exam_condition(aux_exam_2)) == 0){
+                    n_condicao_assinalada +=1;
+                    marked_codition_total_time += get_time_report(aux_exam_2);
+                }
             }
             report_temp++;
         }
@@ -193,13 +205,14 @@ int main()
             percent_report = (100*(report_id-1))/caried_exams;
             avarage_report_time = (total_time_report/report_id-1);
             clear_terminal();
-            
+            marked_codition_avarage_time = (marked_codition_total_time/n_condicao_assinalada);
             /*Impressão das informações*/
             printf("\nNumero de pacientes que visitaram o hospital: %d\n",ids-1);
             printf("Numero de Pacientes em espera: %d\n",get_n_patient_queue(patient_queue));
             printf("Numero de exames ja realizados: %.0f\n", caried_exams);
             printf("Numero de pacientes com laudo %d\n", report_id-1);
             printf("Percentual de exames com laudo: %.3f%%\n", percent_report);
+            printf("Tempo medio de espera por atendimento de pacientes com %s: %d\n", condicao_assinalada, marked_codition_avarage_time);
             printf("Tempo medio de espera para laudo: Aproximadamente %.d unidades de tempo\n", avarage_report_time);
             printf("Numero de exames realizados em ate 7200 unidades de tempo: %d\n", caried_exams_bytime);
             usleep(5000);
