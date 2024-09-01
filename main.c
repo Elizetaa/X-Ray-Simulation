@@ -70,7 +70,7 @@ int main()
     fprintf(exam_file,("ID do Exame, ID da Maquina Utilizada, ID do Paciente, Condicao do paciente, Prioridade de atendimento, Hora do fim do exame, Data do fim do exame, Iteracao do looping principal\n\n"));
     fprintf(report_file,("ID do Laudo, ID do exame, Nova Condicao do Paciente, Hora de conclusao do laudo, Data de conclusao do laudo, Iteracao do Looping Principal.\n\n"));
     /*Definição da seed como nula para criar númeroa aleatórios*/
-    srand(0);
+    srand(time(NULL);
     
     /*Criação de uma fila para as máquinas ocupadas*/
 
