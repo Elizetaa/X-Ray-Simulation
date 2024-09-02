@@ -3,8 +3,8 @@
 #include <time.h>
 #include <string.h>
 #include <assert.h>
-#include "pacientes.h"
-#include "exames.h"
+#include "Pacientes.h"
+#include "Exames.h"
 #include "Machine.h"
 #include <unistd.h>
 #include <string.h>

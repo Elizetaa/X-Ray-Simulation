@@ -26,7 +26,7 @@ int main()
     /*Define quantas unidade de tempo será usadas*/
         
         /*Numero de iterações do looping principal*/
-        int unit_temp = 43200;
+        int unit_temp = 432;
     
     
     /*Define as variaveis dos pacientes*/
@@ -44,6 +44,7 @@ int main()
         int machine_id = 1;
         /*Máquina auxiliar para operações*/
         Machine *aux_machine;
+        /*Variavel Auxiliar de máquina*/
         int aux_machine_slot;
     /*Define as variaveis de exame*/
         
@@ -102,6 +103,8 @@ int main()
         int marked_codition_total_time = 0;
         /*Tempo medio de condição assinalada pelo medico*/
         int marked_codition_avarage_time = 0;
+        /*Condição assinalada pelo medico*/
+        char *condicao_assinalada = "Tuberculose";
         /*Exame auxiliar para operações*/
         Exam *aux_exam_2 = NULL;
 
@@ -112,8 +115,6 @@ int main()
         int patients_cared_ET = 0;
         /*Laudos realizados apos o tempo do looping principal*/
         int reports_created_ET=0;
-        /*Condição assinalada pelo medico*/
-        char *condicao_assinalada = "Tuberculose";
         /*Numero de pacientes com condição assinalada*/
         int n_condicao_assinalada = 0;   
     /*Looping principal, contem a contagem do tempo em "unidades de tempo" e realiza as operações*/
@@ -190,10 +191,10 @@ int main()
             if (report_temp == 0){
                 aux_exam_2 = queue_dequeue_exam(exam_priority_queue);
                 /*Adiciona o tempo de espera à média*/
-                total_time_report += get_time_report(aux_exam_2);
+                total_time_report += get_time_report(aux_exam_2)-1;
                 if (strcmp(condicao_assinalada, get_exam_condition(aux_exam_2)) == 0){
                     n_condicao_assinalada +=1;
-                    marked_codition_total_time += get_time_report(aux_exam_2);
+                    marked_codition_total_time += get_time_report(aux_exam_2)-1;
                 }
             }
             report_temp++;
@@ -207,6 +208,8 @@ int main()
             clear_terminal();
             marked_codition_avarage_time = (marked_codition_total_time/n_condicao_assinalada);
             /*Impressão das informações*/
+            printf("%d\n", n_condicao_assinalada);
+            printf("%d\n", marked_codition_total_time);
             printf("\nNumero de pacientes que visitaram o hospital: %d\n",ids-1);
             printf("Numero de Pacientes em espera: %d\n",get_n_patient_queue(patient_queue));
             printf("Numero de exames ja realizados: %.0f\n", caried_exams);
@@ -215,7 +218,7 @@ int main()
             printf("Tempo medio de espera por atendimento de pacientes com %s: %d\n", condicao_assinalada, marked_codition_avarage_time);
             printf("Tempo medio de espera para laudo: Aproximadamente %.d unidades de tempo\n", avarage_report_time);
             printf("Numero de exames realizados em ate 7200 unidades de tempo: %d\n", caried_exams_bytime);
-            sleep(1);
+            usleep(5000);
             
         }
 

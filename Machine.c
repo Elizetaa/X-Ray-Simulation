@@ -1,4 +1,4 @@
-#include "exames.h"
+#include "Exames.h"
 #include <time.h>
 #include <stdlib.h>
 #include <string.h>
