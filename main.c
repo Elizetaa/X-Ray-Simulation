@@ -208,8 +208,6 @@ int main()
             clear_terminal();
             marked_codition_avarage_time = (marked_codition_total_time/n_condicao_assinalada);
             /*Impressão das informações*/
-            printf("%d\n", n_condicao_assinalada);
-            printf("%d\n", marked_codition_total_time);
             printf("\nNumero de pacientes que visitaram o hospital: %d\n",ids-1);
             printf("Numero de Pacientes em espera: %d\n",get_n_patient_queue(patient_queue));
             printf("Numero de exames ja realizados: %.0f\n", caried_exams);
