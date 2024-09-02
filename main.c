@@ -218,7 +218,7 @@ int main()
             printf("Tempo medio de espera por atendimento de pacientes com %s: %d\n", condicao_assinalada, marked_codition_avarage_time);
             printf("Tempo medio de espera para laudo: Aproximadamente %.d unidades de tempo\n", avarage_report_time);
             printf("Numero de exames realizados em ate 7200 unidades de tempo: %d\n", caried_exams_bytime);
-            usleep(5000);
+            sleep(1);
             
         }
 
