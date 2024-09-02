@@ -26,7 +26,7 @@ int main()
     /*Define quantas unidade de tempo será usadas*/
         
         /*Numero de iterações do looping principal*/
-        int unit_temp = 432;
+        int unit_temp = 43200;
     
     
     /*Define as variaveis dos pacientes*/
