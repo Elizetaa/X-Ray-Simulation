@@ -200,7 +200,7 @@ int main()
             report_temp++;
         }
         /*Impressão eventual de relatórios, será realizada 100 vezes*/
-        if(i%432 == 0){
+        if(i%4320 == 0){
             
             /*Calcula os dados de média de tempo e porcentagem de exames com laudo*/
             percent_report = (100*(report_id-1))/caried_exams;
